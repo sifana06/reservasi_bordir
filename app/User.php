@@ -6,7 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'role', 'phone', 'alamat',
     ];
 
     /**
@@ -36,4 +36,29 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function isAdmin()
+    {
+        if($this->role == 'admin'){
+            return true;
+        }
+
+        return false;
+    }
+
+    public function isPelanggan()
+    {
+        if($this->role == 'pelanggan'){
+            return true;
+        }
+        return false;
+    }
+
+    public function isPemilik()
+    {
+        if($this->role == 'pemilik'){
+            return true;
+        }
+        return false;
+    }
 }
