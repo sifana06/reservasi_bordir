@@ -85,23 +85,72 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
+        <li class="{{Route::currentRouteName() == 'dashboard.index' || Route::currentRouteName() == 'dashboard' ? 'active' : ''}}">
+          <a href="{{route('dashboard.index')}}">
+            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+          </a>
+        </li>
         @if(Auth::user()->role == 'admin')
         <li class="{{ Route::currentRouteName() == 'user.index' || Route::currentRouteName() == 'user.edit' ||Route::currentRouteName() == 'user.create'  ? 'active' : '' }}">
           <a href="{{route('user.index')}}">
             <i class="fa fa-users"></i> <span>Data Users</span>
-            <span class="pull-right-container">
-              <!-- <small class="label pull-right bg-green">new</small> -->
-            </span>
+          </a>
+        </li>
+        <li class="{{ Route::currentRouteName() == 'rekening.index' || Route::currentRouteName() == 'rekening.edit' ||Route::currentRouteName() == 'rekening.create'  ? 'active' : '' }}">
+          <a href="{{route('rekening.index')}}">
+            <i class="fa fa-credit-card"></i> <span>Data Rekening</span>
+          </a>
+        </li>
+        <li class="{{ Route::currentRouteName() == 'transaksi.index' || Route::currentRouteName() == 'transaksi.edit' ||Route::currentRouteName() == 'transaksi.create'  ? 'active' : '' }}">
+          <a href="{{route('transaksi.index')}}">
+            <i class="fa fa-refresh"></i> <span>Data Transaksi</span>
+          </a>
+        </li>
+        <li class="{{ Route::currentRouteName() == 'setting' || Route::currentRouteName() == 'setting.edit' ||Route::currentRouteName() == 'setting.create'  ? 'active' : '' }}">
+          <a href="{{route('setting')}}">
+            <i class="fa fa-cogs"></i> <span>Setting</span>
+          </a>
+        </li>
+        @endif
+        @if(Auth::user()->role == 'pemilik')
+        <li class="{{ Route::currentRouteName() == 'toko.index' || Route::currentRouteName() == 'toko.edit' ||Route::currentRouteName() == 'toko.create'  ? 'active' : '' }}">
+          <a href="">
+            <i class="fa fa-building-o"></i> <span>Data Toko</span>
+          </a>
+        </li>
+        <li class="{{ Route::currentRouteName() == 'produk.index' || Route::currentRouteName() == 'produk.edit' ||Route::currentRouteName() == 'produk.create'  ? 'active' : '' }}">
+          <a href="{{route('produk.index')}}">
+            <i class="fa fa-cubes"></i> <span>Data Produk</span>
+          </a>
+        </li>
+        <li class="{{ Route::currentRouteName() == 'order.index' || Route::currentRouteName() == 'order.edit' ||Route::currentRouteName() == 'order.create'  ? 'active' : '' }}">
+          <a href="{{route('order.index')}}">
+            <i class="fa fa-cubes"></i> <span>Data Order</span>
+          </a>
+        </li>
+        <li class="{{ Route::currentRouteName() == 'transaksi.index' || Route::currentRouteName() == 'transaksi.edit' ||Route::currentRouteName() == 'transaksi.create'  ? 'active' : '' }}">
+          <a href="{{route('transaksi.index')}}">
+            <i class="fa fa-refresh"></i> <span>Data Transaksi</span>
+          </a>
+        </li>
+        @endif
+        @if(Auth::user()->role == 'pelanggan')
+        <li class="{{ Route::currentRouteName() == 'toko.index' || Route::currentRouteName() == 'toko.edit' ||Route::currentRouteName() == 'toko.create'  ? 'active' : '' }}">
+          <a href="">
+            <i class="fa fa-building-o"></i> <span>Data Toko</span>
+          </a>
+        </li>
+        <li class="{{ Route::currentRouteName() == 'order.index' || Route::currentRouteName() == 'order.edit' ||Route::currentRouteName() == 'order.create'  ? 'active' : '' }}">
+          <a href="">
+            <i class="fa fa-building-o"></i> <span>Data Pesanan</span>
           </a>
         </li>
         @endif
         <li class="{{ Route::currentRouteName() == 'cost.all' ||Route::currentRouteName() == 'cost.create' ||Route::currentRouteName() == 'cost.edit' ? 'active' : '' }}">
-          <a href="#">
-            <i class="fa fa-money"></i> <span>Cost</span>
-            <span class="pull-right-container">
-              <!-- <small class="label pull-right bg-green">new</small> -->
-            </span>
-          </a>
+          <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-sign-out"></i><span>Keluar</span></a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
         </li>
       </ul>
     </section>
@@ -112,6 +161,7 @@
   <div class="content-wrapper">
     <!-- Main content -->
     <section class="content">
+    <h3 style="margin-top:0px;">@yield('title')</h3>
      @yield('content')
      </section>
     <!-- /.content -->
@@ -138,6 +188,25 @@
 <script src="/assets/material/bower_components/fastclick/lib/fastclick.js"></script>
 <script src="/assets/material/dist/js/adminlte.min.js"></script>
 <script src="/assets/material/dist/js/demo.js"></script>
+<script type="text/javascript"> 
+    //logout
+    $(document).ready(function() {
+      $('#keluar').on('show.bs.modal', function(e) {
+        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+      });
+    });
+  </script>
 @stack('footer')
+<div class="modal fade" id="keluar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+     <div class="modal-content">
+      <div class="modal-body text-center">
+       <b>Anda yakin ingin sign out?</b>
+       <br><br>
+       <a class="btn btn-danger btn-ok"> Yakin dong</a><button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-close"></i> Gak jadi</button>
+     </div>
+   </div>
+ </div>
+
 </body>
 </html>

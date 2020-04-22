@@ -50,4 +50,14 @@ class DashboardController extends Controller
     {
         //
     }
+
+    public function profile()
+    {
+        $user = auth()->user()->role;
+        if($user == 'pelanggan'){
+            return view('pelanggan.profile');
+        }else{
+            return view('dashboard.profile');
+        }
+    }
 }
