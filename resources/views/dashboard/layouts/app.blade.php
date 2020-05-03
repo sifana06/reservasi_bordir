@@ -53,7 +53,7 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="{{ route('profile')}}" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="btn btn-default btn-flat">Sign out</a>
@@ -114,12 +114,12 @@
         @endif
         @if(Auth::user()->role == 'pemilik')
         <li class="{{ Route::currentRouteName() == 'toko.index' || Route::currentRouteName() == 'toko.edit' ||Route::currentRouteName() == 'toko.create'  ? 'active' : '' }}">
-          <a href="">
+          <a href="{{route('toko.index')}}">
             <i class="fa fa-building-o"></i> <span>Data Toko</span>
           </a>
         </li>
-        <li class="{{ Route::currentRouteName() == 'produk.index' || Route::currentRouteName() == 'produk.edit' ||Route::currentRouteName() == 'produk.create'  ? 'active' : '' }}">
-          <a href="{{route('produk.index')}}">
+        <li class="{{ Route::currentRouteName() == 'product.index' || Route::currentRouteName() == 'product.edit' ||Route::currentRouteName() == 'product.create'  ? 'active' : '' }}">
+          <a href="{{route('product.index')}}">
             <i class="fa fa-cubes"></i> <span>Data Produk</span>
           </a>
         </li>
@@ -131,6 +131,11 @@
         <li class="{{ Route::currentRouteName() == 'transaksi.index' || Route::currentRouteName() == 'transaksi.edit' ||Route::currentRouteName() == 'transaksi.create'  ? 'active' : '' }}">
           <a href="{{route('transaksi.index')}}">
             <i class="fa fa-refresh"></i> <span>Data Transaksi</span>
+          </a>
+        </li>
+        <li class="{{ Route::currentRouteName() == 'rekening.index' || Route::currentRouteName() == 'rekening.edit' ||Route::currentRouteName() == 'rekening.create'  ? 'active' : '' }}">
+          <a href="{{route('rekening.index')}}">
+            <i class="fa fa-credit-card"></i> <span>Data Rekening</span>
           </a>
         </li>
         @endif

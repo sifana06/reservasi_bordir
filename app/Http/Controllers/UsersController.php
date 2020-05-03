@@ -27,6 +27,7 @@ class UsersController extends Controller
 
     public function store(UsersStoreRequest $request)
     {
+        //buka file UsersStoreRequest untuk liat rule validasi
         $messages = [
             'required' => ':attribute tidak boleh kosong.',
             'regex'    => ':attribute harus berupa karakter alphabet.',

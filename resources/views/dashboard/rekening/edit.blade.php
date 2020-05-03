@@ -1,16 +1,8 @@
 @extends('dashboard.layouts.app')
-@section('title', 'Data Produk')
+@section('title', 'Data Rekening')
 
 @section('content')
 <div class="row">
-  <div class="col-xs-12">
-      <div class="box">
-        <div class="box-header">
-          <a href="#" class="btn btn-secondary bg-green btn-sm pull-left" style="margin-top: 0px; margin-bottom: 0px;"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Produk</a>
-        </div>
-      </div>
-    </div>
-
     <div class="col-md-12">
         <!-- Horizontal Form -->
         @if ($message = Session::get('success'))
@@ -31,20 +23,39 @@
         <strong>{{ $message }}</strong>
         </div>
         @endif
-        <div class="box box-info">
-          <div class="box-body">
-              <table id="produk-table" class="table table-bordered table-striped" style="width:100%!important;">
-              <thead>
-                  <tr>
-                  <th width="10">No</th>
-                  <th width="250">Nama Produk</th>
-                  <th width="150">Jenis Bordir</th>
-                  <th>Deskripsi</th>
-                  <th width="50">Action</th>
-                  </tr>
-              </thead>
-              </table>
-          </div>
+        <!-- general form elements -->
+        <div class="box box-primary">
+        <div class="box-header with-border">
+            <div class="box-title">
+            <h4 style="margin-top: 0px; margin-bottom: 0px;"><a href="{{route('rekening.index')}}"><span class="fa fa-arrow-left"></span></a> Edit Nomor Rekaning</h4>
+            </div>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form method="post" action="{{ route('rekening.update',$rekening->id)}}" enctype="multipart/form-data" autocomplete="off">
+            {{ csrf_field() }}
+            {{ method_field('PUT') }}
+            <div class="box-body">
+            <div class="form-group">
+                <label>Nama Bank</label>
+                <input type="text" class="form-control" name="nama_bank" placeholder="Bank BRI" value="{{$rekening->nama_bank}}">
+            </div>
+            <div class="form-group">
+                <label >No Rekening</label>
+                <input type="text" class="form-control" name="no_rekening" placeholder="5556238261" value="{{$rekening->no_rekening}}">
+            </div>
+            <div class="form-group">
+                <label>Nama Pemilik Rekening</label>
+                <input type="text" class="form-control" placeholder="Ahmad Rojali" name="nama_pemilik" value="{{$rekening->nama_pemilik}}">
+            </div>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+            <button type="reset" class="btn btn-warning">Batal</button>
+            <button type="submit" class="btn btn-success">Simpan</button>
+            </div>
+            <!-- /.box-footer -->
+        </form>
         </div>
     </div>
   <!--/.col (right) -->
@@ -68,29 +79,4 @@
 @push('footer')
 <script src="/assets/material/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="/assets/material/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<script type="text/javascript"> 
-    //Hapus Data
-    $(document).ready(function() {
-      $('#konfirmasi_hapus').on('show.bs.modal', function(e) {
-        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
-      });
-    });
-  </script>
-  <script>
-    $(function() {
-      $('#produk-table').DataTable({
-        responsive: true,
-        processing: true,
-        serverSide: true,
-        ajax: '{!! route('product.getdata') !!}',
-        columns: [
-        { data: 'DT_RowIndex', orderable: false, searchable: false },
-        { data: 'nama', name: 'nama' },
-        { data: 'jenis', name: 'jenis' },
-        { data: 'deskripsi', name: 'deskripsi' },
-        { data: 'action', name: 'action', orderable: false, searchable: false }
-        ]
-      });
-    });
-  </script>
 @endpush

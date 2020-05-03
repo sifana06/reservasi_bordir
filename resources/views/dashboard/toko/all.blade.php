@@ -1,12 +1,12 @@
 @extends('dashboard.layouts.app')
-@section('title', 'Data Produk')
+@section('title', 'Data Toko')
 
 @section('content')
 <div class="row">
   <div class="col-xs-12">
       <div class="box">
         <div class="box-header">
-          <a href="#" class="btn btn-secondary bg-green btn-sm pull-left" style="margin-top: 0px; margin-bottom: 0px;"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Produk</a>
+          <a href="{{route('toko.create')}}" class="btn btn-secondary bg-green btn-sm pull-left" style="margin-top: 0px; margin-bottom: 0px;"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Toko</a>
         </div>
       </div>
     </div>
@@ -33,13 +33,13 @@
         @endif
         <div class="box box-info">
           <div class="box-body">
-              <table id="produk-table" class="table table-bordered table-striped" style="width:100%!important;">
+              <table id="toko-table" class="table table-bordered table-striped" style="width:100%!important;">
               <thead>
                   <tr>
                   <th width="10">No</th>
-                  <th width="250">Nama Produk</th>
-                  <th width="150">Jenis Bordir</th>
-                  <th>Deskripsi</th>
+                  <th width="250">Nama Toko</th>
+                  <th width="150">Telepon</th>
+                  <th>Alamat</th>
                   <th width="50">Action</th>
                   </tr>
               </thead>
@@ -78,16 +78,16 @@
   </script>
   <script>
     $(function() {
-      $('#produk-table').DataTable({
+      $('#toko-table').DataTable({
         responsive: true,
         processing: true,
         serverSide: true,
-        ajax: '{!! route('product.getdata') !!}',
+        ajax: '{!! route('toko.getdata') !!}',
         columns: [
         { data: 'DT_RowIndex', orderable: false, searchable: false },
         { data: 'nama', name: 'nama' },
-        { data: 'jenis', name: 'jenis' },
-        { data: 'deskripsi', name: 'deskripsi' },
+        { data: 'kontak', name: 'kontak' },
+        { data: 'alamat', name: 'alamat' },
         { data: 'action', name: 'action', orderable: false, searchable: false }
         ]
       });

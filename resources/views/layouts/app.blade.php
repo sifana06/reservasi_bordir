@@ -39,10 +39,12 @@
         </div>
         <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="{{ Route::currentRouteName() == 'dashboard.index' || Route::currentRouteName() == 'dashboard' ? 'active' : ''}}">
+            <li class="{{ Route::currentRouteName() == 'home.index' || Route::currentRouteName() == 'home' ? 'active' : ''}}">
               <a href="{{route('home')}}">Dashboard <span class="sr-only">(current)</span></a>
             </li>
-            <li><a href="#">Data Toko</a></li>
+            <li class="{{ Route::currentRouteName() == 'toko.index' ? 'active' : ''}}">
+              <a href="{{route('store.index')}}">Data Toko</a>
+            </li>
             <li class="{{ Route::currentRouteName() == 'po.index' ? 'active' : ''}}">
                 <a href="{{route('po.index')}}">Pesanan Saya</a>
             </li>

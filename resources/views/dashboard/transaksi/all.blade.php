@@ -36,8 +36,11 @@
             <tr>
               <th width="10">No</th>
               <th width="150">Nama</th>
-              <th>Nomor Rekening</th>
-              <th>Toko</th>
+              <th>Nomor Pesanan</th>
+              <th>Tanggal</th>
+              <th>Status</th>
+              <th>Jumlah</th>
+              <th>Tipe Pembayaran</th>
               <th width="50">Action</th>
             </tr>
           </thead>
@@ -77,7 +80,7 @@
   </script>
   <script>
     $(function() {
-      $('#rekening-table').DataTable({
+      $('#transaksi-table').DataTable({
         responsive: true,
         processing: true,
         serverSide: true,

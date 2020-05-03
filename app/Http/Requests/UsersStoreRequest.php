@@ -23,6 +23,12 @@ class UsersStoreRequest extends FormRequest
      */
     public function rules()
     {
+        /**
+         * Keterangan rule validasi
+         * required->harus di isi
+         * regex: -> hasus berupa alphabet
+         * unique -> tidak boleh sama
+         */
         return [
             'name' => 'required|regex:/^[\pL\s\-]+$/u',
             'email' => 'required|unique:users,email',

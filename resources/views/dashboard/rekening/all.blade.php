@@ -3,8 +3,15 @@
 
 @section('content')
 <div class="row">
+  <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+          <a href="{{route('rekening.create')}}" class="btn btn-secondary bg-green btn-sm pull-left" style="margin-top: 0px; margin-bottom: 0px;">
+          <i class="fa fa-plus" aria-hidden="true"></i> Tambah Rekening</a>
+        </div>
+      </div>
+    </div>
   <div class="col-md-12">
-    <!-- Horizontal Form -->
     @if ($message = Session::get('success'))
     <div class="alert alert-success alert-block">
       <button type="button" class="close" data-dismiss="alert">×</button>    
@@ -26,37 +33,39 @@
     <div class="box box-info">
       <div class="box-header with-border">
         <div class="box-title">
-          <h4 style="margin-top: 0px; margin-bottom: 0px;">All Users</h4>
+          <h4 style="margin-top: 0px; margin-bottom: 0px;">Rekening Saya</h4>
         </div>
       </div>
       <!-- /.box-header -->
       <div class="box-body">
-        <table id="user-table" class="table table-bordered table-striped" style="width:100%!important;">
+        <table id="rekening-table" class="table table-bordered table-striped" style="width:100%!important;">
           <thead>
             <tr>
               <th width="10">No</th>
-              <th width="150">Nama</th>
-              <th>Nomor Rekening</th>
-              <th>Toko</th>
+              <th width="150">Nama Bank</th>
+              <th>Nomor Rek.</th>
+              <th>Nama Pemilik</th>
               <th width="50">Action</th>
             </tr>
           </thead>
         </table>
       </div>
     </div>
-  </div>
-  <!--/.col (right) -->
+    <!--/.col (right) -->
 
-  <div class="modal fade" id="konfirmasi_hapus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-     <div class="modal-content">
-      <div class="modal-body text-center">
-       <b>Anda yakin ingin menghapus Permanen data ini ?</b>
-       <br><br>
-       <a class="btn btn-danger btn-ok"> Hapus</a><button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-close"></i> Batal</button>
-     </div>
-   </div>
- </div>
+    <!-- Modal Hapus -->
+    <div class="modal fade" id="konfirmasi_hapus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body text-center">
+            <b>Anda yakin ingin menghapus Permanen data ini ?</b>
+            <br><br>
+            <a class="btn btn-danger btn-ok"> Hapus</a><button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-close"></i> Batal</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 @endsection
 
@@ -68,28 +77,28 @@
 <script src="/assets/material/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="/assets/material/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript"> 
-    //Hapus Data
-    $(document).ready(function() {
-      $('#konfirmasi_hapus').on('show.bs.modal', function(e) {
-        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
-      });
+  //Hapus Data
+  $(document).ready(function() {
+    $('#konfirmasi_hapus').on('show.bs.modal', function(e) {
+      $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
     });
-  </script>
-  <script>
-    $(function() {
-      $('#rekening-table').DataTable({
-        responsive: true,
-        processing: true,
-        serverSide: true,
-        ajax: '',
-        columns: [
-        { data: 'DT_RowIndex', orderable: false, searchable: false },
-        { data: 'name', name: 'name' },
-        { data: 'kontak', name: 'kontak' },
-        { data: 'alamat', name: 'alamat' },
-        { data: 'action', name: 'action', orderable: false, searchable: false }
-        ]
-      });
+  });
+</script>
+<script>
+  $(function() {
+    $('#rekening-table').DataTable({
+      responsive: true,
+      processing: true,
+      serverSide: true,
+      ajax: '{!! route('rekening.getdata') !!}',
+      columns: [
+      { data: 'DT_RowIndex', orderable: false, searchable: false },
+      { data: 'nama', name: 'nama' },
+      { data: 'nomor', name: 'nomor' },
+      { data: 'pemilik', name: 'pemilik' },
+      { data: 'action', name: 'action', orderable: false, searchable: false }
+      ]
     });
-  </script>
-  @endpush
+  });
+</script>
+@endpush

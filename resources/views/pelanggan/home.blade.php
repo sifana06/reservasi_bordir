@@ -6,7 +6,7 @@
     <div class="col-md-3">
         <div class="box box-warning">
             <div class="box-header with-border">
-                <h3 class="box-title">About Me</h3>
+                <h3 class="box-title">Filter</h3>
             </div>
             <div class="box-body">
                 <h5 class="box-title">Kategori</h5>
@@ -116,14 +116,7 @@
                 <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
         </div>
-        <div class="card" style="width: 20rem;  margin-right: 3px; margin-bottom: 5px;">
-            <img src="/assets/material/images/background-2.jpg" class="card-img-top" style="width:100%;">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
+
     </div>
 </div>
 @endsection

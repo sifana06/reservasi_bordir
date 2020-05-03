@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.app')
-@section('title', 'Management User')
+@section('title', 'Profile')
 
 @section('content')
 <div class="row">
@@ -53,7 +53,7 @@
         <div class="box box-info">
             <div class="box-header with-border">
                 <h3 class="box-title">Edit Profile</h3>
-                <h5 class="box-options pull-right" style="margin-top:0px;">Role : {{Auth::user()->role}}</h5>
+                <h5 class="box-options pull-right" style="margin-top:0px;">Role : {{ucwords(Auth::user()->role)}}</h5>
             </div>
             <form action="{{route('profile.update')}}" method="post" autocomplete="off">
             {{ csrf_field() }}
