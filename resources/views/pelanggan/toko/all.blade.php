@@ -3,57 +3,69 @@
 
 @section('content')
 <div class="row">
-    <div class="col-md-2">
-    <div class="box">
-    asdasd
-    </div>
-    </div>
-    <div class="col-md-10">
-        <!-- Horizontal Form -->
-        @if ($message = Session::get('success'))
-        <div class="alert alert-success alert-block">
-        <button type="button" class="close" data-dismiss="alert">×</button>    
-        <strong>{{ $message }}</strong>
-        </div>
-        @endif
-        @if ($message = Session::get('message'))
-        <div class="alert alert-warning alert-block">
-        <button type="button" class="close" data-dismiss="alert">×</button>    
-        <strong>{{ $message }}</strong>
-        </div>
-        @endif
-        @if ($message = Session::get('error'))
-        <div class="alert alert-danger alert-block">
-        <button type="button" class="close" data-dismiss="alert">×</button>    
-        <strong>{{ $message }}</strong>
-        </div>
-        @endif
-        <div class="box box-info">
-        <div class="box-body">
-            <table id="user-table" class="table table-bordered table-striped" style="width:100%!important;">
-            <thead>
-                <tr>
-                <th width="10">No</th>
-                <th width="150">Nama</th>
-                <th>Nomor Rekening</th>
-                <th>Toko</th>
-                <th width="50">Action</th>
-                </tr>
-            </thead>
-            </table>
-        </div>
+    <div class="col-md-3">
+        <div class="box box-warning">
+            <div class="box-header with-border">
+                <h3 class="box-title" style="margin-top:0px;margin-bottom:0px;">Filter</h3>
+            </div>
+            <div class="box-body">
+                <h5 class="box-title" style="margin-top:0px;">Kecamatan</h5>
+                <div class="form-group" style="margin-top:0px;">
+                    <select name="filter_kecamatan" class="form-control select2" style="width: 100%;">
+                        <option value="">Pilih Kecamatan</option>
+                        @foreach($kecamatan as $kec)
+                        <option value="{{$kec->id}}">{{$kec->nama}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <hr style="margin-top:5px;margin-bottom:5px;">
+                <h5 class="box-title" style="margin-top:0px;">Desa</h5>
+                <div class="form-group" style="margin-top:0px;">
+                    <select name="filter_desa" class="form-control select2" style="margin-top:0pxwidth:100%;">
+                        <option value="">Pilih Desa</option>
+                        @foreach($desa as $d)
+                        <option value="{{$d->id}}">{{$d->nama}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="box-footer">
+              <button type="submit" class="btn btn-blue btn-sm bg-blue" style="width:100%;">Cari</button>
+            </div>
         </div>
     </div>
-  <!--/.col (right) -->
-  <div class="modal fade" id="konfirmasi_hapus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-     <div class="modal-content">
-      <div class="modal-body text-center">
-       <b>Anda yakin ingin menghapus Permanen data ini ?</b>
-       <br><br>
-       <a class="btn btn-danger btn-ok"> Hapus</a><button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-close"></i> Batal</button>
-     </div>
-   </div>
- </div>
+
+    <div class="col-md-9">
+    @foreach($toko as $t)
+        <div class="card" style="width: 20rem; margin-right: 3px; margin-bottom: 5px;">
+            @if($t->foto == NULL)
+            <img src="{{url('uploads/image_not_found.png')}}" class="card-img-top" style="border:1px solid black;width:200px;height:150px;">
+            @else
+            <img src="{{url('uploads/'. $t->foto)}}" class="card-img-top" style="border:1px solid black;width:200px;height:150px;">
+            @endif
+            <div class="card-body">
+                <h5 class="card-title"><a href="{{route('store.detail', $t->id)}}">{{$t->nama}}</a></h5>
+                <p class="card-text">{{$t->alamat}}</p>
+            </div>
+        </div>
+    @endforeach
+    {{ $toko->links() }}
+    </div>
 </div>
 @endsection
+
+
+@push('header')
+<link rel="stylesheet" href="/assets/material/bower_components/select2/dist/css/select2.min.css">
+@endpush
+
+@push('footer')
+<script src="/assets/material/bower_components/select2/dist/js/select2.full.min.js"></script>
+
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+  });
+</script>
+@endpush

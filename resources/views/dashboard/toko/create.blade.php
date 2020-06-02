@@ -27,16 +27,16 @@
             <div class="box-header with-border" style="margin-left:0px;">
                 <h4 style="margin-top:0px; margin-bottom:0px;"><a href="{{route('toko.index')}}"><span class="fa fa-arrow-left"></span></a> Tambah Toko</h4>
             </div>
-            <form method="post" action="{{route('toko.store')}}">
+            <form method="post" action="{{route('toko.store')}}" enctype="multipart/form-data">
             @csrf
                 <div class="box-body">
                     <div class="row">
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label style="margin-bottom:20px;">Foto Toko</label>
+                        <div class="col-sm-3" style="margin-top: 0px;">
+                            <div class="form-group" style="margin-top:0px;">
+                                <label style="margin-bottom:10px;">Foto Toko</label>
                                 <div id="image-preview">
-                                    <label for="image-upload" id="image-label" class="text-navy">Pilih gambar</label>
-                                    <input type="file" name="image" id="image-upload" required />
+                                    <label for="image-upload" id="image-label" style="color:#f0f0f0;">Choose File</label>
+                                    <input type="file" name="foto" id="image-upload" />
                                 </div>
                             </div>
                         </div>
@@ -49,13 +49,43 @@
                         <label>No. Telepon</label>
                         <input type="text" class="form-control" name="phone" placeholder="082328321344">
                     </div>
+                    <div class="row" style="margin-top:0px;">
+                        <div class="col-md-4" style="margin-top:0px;">
+                            <div class="form-group" style="margin-top:0px;">
+                                <label>Kabupaten</label>
+                                <select name="kabupaten" class="form-control">
+                                    <option value="">--- Kabupaten  ---</option>
+                                    @foreach ($kabupaten as $value)
+                                        <option value="{{ $value->id }}">{{ $value->nama }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4" style="margin-top:0px;">
+                            <div class="form-group" style="margin-top:0px;">
+                                <label>Kecamatan</label>
+                                <!-- <input type="text" class="form-control" name="kecamatan" placeholder="Kecamatan Tarub"> -->
+                                <select name="kecamatan" class="form-control">
+                                    <option>-- Kecamatan --</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4" style="margin-top:0px;">
+                            <div class="form-group" style="margin-top:0px;">
+                                <label>Desa</label>
+                                <select name="desa" class="form-control">
+                                    <option>-- Desa --</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-group" style="margin-top:0px;">
                         <label>Alamat</label>
                         <textarea class="form-control" rows="3" name="alamat" placeholder="Jalan Mawar Merah No 69"></textarea>
                     </div>
                 </div>
                 <div class="box-footer">
-                    <button type="reset" class="btn btn-primary btn-sm bg-navy">Reset</button>
+                    <button type="reset" class="btn btn-primary btn-sm bg-navy">Clear</button>
                     <button type="submit" class="btn btn-success btn-sm bg-green">Simpan</button>
                 </div>
             </form>
@@ -121,5 +151,61 @@
 @push('footer')
 <script src="/assets/material/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="/assets/material/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<script src="/resource/js/image-prerview.js"></script>
+
+<!-- Input Kecamatan -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('select[name="kabupaten"]').on('change', function() {
+            var kabupatenID = $(this).val();
+            if(kabupatenID) {
+                $.ajax({
+                    url: '/kabupaten/kecamatan/'+kabupatenID,
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+                        $('select[name="kecamatan"]').empty();
+                        $.each(data, function(key, value) {
+                            $('select[name="kecamatan"]').append('<option value="'+ key +'">'+ value +'</option>');
+                        });
+                    }
+                });
+            }else{
+                $('select[name="kecamatan"]').empty();
+            }
+        });
+    });
+
+    $(document).ready(function() {
+        $('select[name="kecamatan"]').on('change', function() {
+            var kabupatenID = $(this).val();
+            if(kabupatenID) {
+                $.ajax({
+                    url: '/kecamatan/desa/'+kabupatenID,
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+                        $('select[name="desa"]').empty();
+                        $.each(data, function(key, value) {
+                            $('select[name="desa"]').append('<option value="'+ key +'">'+ value +'</option>');
+                        });
+                    }
+                });
+            }else{
+                $('select[name="desa"]').empty();
+            }
+        });
+    });
+</script>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="/js/jquery.uploadPreview.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $.uploadPreview({
+        input_field: "#image-upload",
+        preview_box: "#image-preview",
+        label_field: "#image-label"
+    });
+});
+</script>
 @endpush

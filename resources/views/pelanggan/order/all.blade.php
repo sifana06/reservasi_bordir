@@ -3,6 +3,15 @@
 
 @section('content')
 <div class="row">
+  <div class="col-xs-12">
+    <div class="box">
+      <div class="box-header">
+        <a href="{{route('po.add')}}" class="btn btn-secondary bg-green btn-sm pull-left" style="margin-top: 0px; margin-bottom: 0px;">
+        <i class="fa fa-plus" aria-hidden="true"></i> Buat Pesanan</a>
+      </div>
+    </div>
+  </div>
+    
     <div class="col-md-12">
         <!-- Horizontal Form -->
         @if ($message = Session::get('success'))
@@ -24,19 +33,21 @@
         </div>
         @endif
         <div class="box box-info">
-        <div class="box-body">
-            <table id="user-table" class="table table-bordered table-striped" style="width:100%!important;">
-            <thead>
-                <tr>
-                <th width="10">No</th>
-                <th width="150">Nama</th>
-                <th>Nomor Rekening</th>
-                <th>Toko</th>
-                <th width="50">Action</th>
-                </tr>
-            </thead>
-            </table>
-        </div>
+          <div class="box-body">
+              <table id="orderPelanggan-table" class="table table-bordered table-striped" style="width:100%!important;">
+              <thead>
+                  <tr>
+                  <th width="10">No</th>
+                  <th width="150">Order</th>
+                  <th>Customer</th>
+                  <th>Produk</th>
+                  <th>Status</th>
+                  <th>Total</th>
+                  <!-- <th width="50">Action</th> -->
+                  </tr>
+              </thead>
+              </table>
+          </div>
         </div>
     </div>
   <!--/.col (right) -->
@@ -52,3 +63,37 @@
  </div>
 </div>
 @endsection
+
+@push('header')
+<link rel="stylesheet" href="/assets/material/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+@endpush
+@push('footer')
+<script src="/assets/material/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/assets/material/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript"> 
+    //Hapus Data
+    $(document).ready(function() {
+      $('#konfirmasi_hapus').on('show.bs.modal', function(e) {
+        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+      });
+    });
+  </script>
+  <script>
+    $(function() {
+      $('#orderPelanggan-table').DataTable({
+        responsive: true,
+        processing: true,
+        serverSide: true,
+        ajax: '{!! route('po.getdatapelanggan') !!}',
+        columns: [
+        { data: 'DT_RowIndex', orderable: false, searchable: false },
+        { data: 'order', name: 'order' },
+        { data: 'customer', name: 'customer' },
+        { data: 'produk', name: 'produk' },
+        { data: 'status', name: 'status' },
+        { data: 'total', name: 'total' }
+        ]
+      });
+    });
+  </script>
+@endpush

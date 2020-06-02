@@ -4,12 +4,12 @@
 @section('content')
 <div class="row">
   <div class="col-xs-12">
-      <div class="box">
-        <div class="box-header">
-          <a href="{{route('toko.create')}}" class="btn btn-secondary bg-green btn-sm pull-left" style="margin-top: 0px; margin-bottom: 0px;"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Toko</a>
-        </div>
+    <div class="box">
+      <div class="box-header">
+        <a href="{{route('toko.create')}}" class="btn btn-secondary bg-green btn-sm pull-left" style="margin-top: 0px; margin-bottom: 0px;"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Toko</a>
       </div>
     </div>
+  </div>
 
     <div class="col-md-12">
         <!-- Horizontal Form -->
@@ -48,16 +48,16 @@
         </div>
     </div>
   <!--/.col (right) -->
-  <div class="modal fade" id="konfirmasi_hapus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-     <div class="modal-content">
+<div class="modal fade" id="konfirmasi_hapus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
       <div class="modal-body text-center">
-       <b>Anda yakin ingin menghapus Permanen data ini ?</b>
-       <br><br>
-       <a class="btn btn-danger btn-ok"> Hapus</a><button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-close"></i> Batal</button>
-     </div>
-   </div>
- </div>
+        <b>Anda yakin ingin menghapus data ini ?</b>
+        <br><br>
+        <a class="btn btn-danger btn-ok"> Hapus</a><button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-close"></i> Batal</button>
+      </div>
+    </div>
+  </div>
 </div>
 @endsection
 

@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.app')
-@section('title', 'Data Toko')
+@section('title', 'Data Produk')
 
 @section('content')
 <div class="row">
@@ -23,35 +23,58 @@
         <strong>{{ $message }}</strong>
         </div>
         @endif
+        @if ($errors->any())
+            <div class="alert alert-warning alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+                </ul>
+            </div>
+            @endif
         <div class="box box-info">
             <div class="box-header with-border" style="margin-left:0px;">
                 <h4 style="margin-top:0px; margin-bottom:0px;"><a href="{{route('toko.index')}}"><span class="fa fa-arrow-left"></span></a> Tambah Toko</h4>
             </div>
-            <form method="post" action="{{route('toko.store')}}">
+            <form method="post" action="{{route('product.store')}}" enctype="multipart/form-data">
             @csrf
                 <div class="box-body">
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label style="margin-bottom:20px;">Foto Toko</label>
+                    <div class="row" style="margin-top:0px;">
+                        <div class="col-sm-3" style="margin-top: 0px;">
+                            <div class="form-group" style="margin-top:0px;">
+                                <label style="margin-bottom:10px;">Foto Produk</label>
                                 <div id="image-preview">
-                                    <label for="image-upload" id="image-label" style="color:#f0f0f0;">Pilih gambar</label>
-                                    <input type="file" name="image" id="image-upload" required />
+                                    <label for="image-upload" id="image-label" style="color:#f0f0f0;">Choose File</label>
+                                    <input type="file" name="foto" id="image-upload" />
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-group" style="margin-top:0px;">
-                        <label>Nama Toko</label>
-                        <input type="text" class="form-control" name="nama" placeholder="Gunting Emas">
+                        <label>Nama Produk</label>
+                        <input type="text" class="form-control" name="nama" placeholder="Bordir tepi logo">
                     </div>
                     <div class="form-group" style="margin-top:0px;">
-                        <label>No. Telepon</label>
-                        <input type="text" class="form-control" name="phone" placeholder="082328321344">
+                        <label>Toko</label>
+                        <select name="store_id" class="form-control">
+                            <option value="">-- Pilih Toko --</option>
+                            @foreach($toko as $t)
+                            <option value="{{$t->id}}">{{$t->nama}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group" style="margin-top:0px;">
-                        <label>Alamat</label>
-                        <textarea class="form-control" rows="3" name="alamat" placeholder="Jalan Mawar Merah No 69"></textarea>
+                        <label>Jenis Bordir</label>
+                        <select name="jenis_bordir" class="form-control">
+                            <option value="">-- Pilih Jenis --</option>
+                            <option value="logo">Bordir Logo</option>
+                            <option value="kaos">Bordir Kaos</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="margin-top:0px;">
+                        <label>Deskripsi</label>
+                        <textarea class="form-control" rows="3" name="deskripsi" placeholder="Deskripsi Produk"></textarea>
                     </div>
                 </div>
                 <div class="box-footer">
@@ -119,6 +142,17 @@
 @endpush
 
 @push('footer')
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="/js/jquery.uploadPreview.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $.uploadPreview({
+        input_field: "#image-upload",
+        preview_box: "#image-preview",
+        label_field: "#image-label"
+    });
+});
+</script>
 <script src="/assets/material/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="/assets/material/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="/resource/js/image-prerview.js"></script>

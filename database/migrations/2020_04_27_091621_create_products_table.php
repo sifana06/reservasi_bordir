@@ -18,6 +18,7 @@ class CreateProductsTable extends Migration
             $table->integer('store_id')->nullable();
             $table->integer('pemilik_id')->nullable();
             $table->string('nama', 35);
+            $table->string('foto', 191)->nullable();
             $table->string('jenis_bordir', 25);
             $table->text('deskripsi');
             $table->timestamps();

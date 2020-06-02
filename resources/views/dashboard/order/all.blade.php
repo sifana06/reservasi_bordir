@@ -32,14 +32,15 @@
       @endif
       <div class="box box-info">
         <div class="box-body">
-          <table id="user-table" class="table table-bordered table-striped" style="width:100%!important;">
+          <table id="order-table" class="table table-bordered table-striped" style="width:100%!important;">
             <thead>
               <tr>
                 <th width="10">No</th>
-                <th width="150">Nomor Pesanan</th>
-                <th>Nama Pemesan</th>
-                <th>Jenis Bordir</th>
-                <th>Deskripsi</th>
+                <th width="150">Order Number</th>
+                <th>Customers</th>
+                <th>Products</th>
+                <th>Status</th>
+                <th>Total</th>
                 <th width="50">Action</th>
               </tr>
             </thead>
@@ -83,12 +84,14 @@
         responsive: true,
         processing: true,
         serverSide: true,
-        ajax: '',
+        ajax: '{!! route('order.getdata') !!}',
         columns: [
         { data: 'DT_RowIndex', orderable: false, searchable: false },
-        { data: 'name', name: 'name' },
-        { data: 'kontak', name: 'kontak' },
-        { data: 'alamat', name: 'alamat' },
+        { data: 'order_number', name: 'order_number' },
+        { data: 'customers', name: 'customers' },
+        { data: 'products', name: 'products' },
+        { data: 'status', name: 'status' },
+        { data: 'total', name: 'total' },
         { data: 'action', name: 'action', orderable: false, searchable: false }
         ]
       });

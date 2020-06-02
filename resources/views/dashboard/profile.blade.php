@@ -71,6 +71,12 @@
                         <label>Phone</label>
                         <input type="text" class="form-control "placeholder="Enter email" name="phone" value={{Auth::user()->phone}}>
                     </div>
+                    @if(Auth::user()->role == "pemilik")
+                    <div class="form-group">
+                        <label>Nomor Izin Usaha</label>
+                        <input type="text" class="form-control "placeholder="Nomor Izin Usaha" name="no_ijin" value={{Auth::user()->no_ijin}}>
+                    </div>
+                    @endif
                     <hr>
                     <h4>Ubah Password</h4>
                     <div class="form-group">

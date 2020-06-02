@@ -1,122 +1,71 @@
 @extends('layouts.app')
-@section('title', 'Dashboard')
 
 @section('content')
 <div class="row">
     <div class="col-md-3">
         <div class="box box-warning">
             <div class="box-header with-border">
-                <h3 class="box-title">Filter</h3>
+                <h3 class="box-title" style="margin-top:0px;margin-bottom:0px;">Filter</h3>
             </div>
             <div class="box-body">
-                <h5 class="box-title">Kategori</h5>
-                <hr>
-                <div class="form-group">
-                    <label for="">Kain</label>
-                    <label for="">Kain</label>
+                <h5 class="box-title" style="margin-top:0px;">Jenis Bordir</h5>
+                <div class="form-group"  style="margin-top:0px;">
+                    <label>
+                    <input type="radio" name="r3" class="flat-red">
+                    <small>Bordir Logo</small>
+                    </label>
+                    <br>
+                    <label>
+                    <input type="radio" name="r3" class="flat-red">
+                    <small>Bordir Kaos</small>
+                    </label>
                 </div>
+                <hr style="margin-top:5px;margin-bottom:5px;">
+                <h5 class="box-title" style="margin-top:0px;">Kecamatan</h5>
+                <div class="form-group" style="margin-top:0px;">
+                    <select class="form-control select2" style="width: 100%;">
+                        <option value="">Select Kecamatan</option>
+                        @foreach($kecamatan as $kcm)
+                            <option value="{{$kcm->id}}">{{$kcm->nama}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <hr style="margin-top:5px;margin-bottom:5px;">
+                <h5 class="box-title" style="margin-top:0px;">Desa</h5>
+                <div class="form-group" style="margin-top:0px;">
+                    <select name="" class="form-control select2" style="margin-top:0px;">
+                        <option value="">Select Desa</option>
+                        @foreach($desa as $ds)
+                        <option value="{{$ds->id}}">{{$ds->nama}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="box-footer">
+              <button type="submit" class="btn btn-blue btn-sm bg-blue" style="width:100%;">Cari</button>
             </div>
         </div>
     </div>
 
     <div class="col-md-9">
+    @foreach($produk as $pro)
         <div class="card" style="width: 20rem; margin-right: 3px; margin-bottom: 5px;">
-            <img src="/assets/material/images/background-2.jpg" class="card-img-top" style="width:100%;">
+            @if($pro->foto == NULL)
+            <img src="{{url('uploads/image_not_found.png')}}" class="card-img-top" style="border:1px solid black;width:200px;height:150px;">
+            @else
+            <img src="{{url('uploads/'. $pro->foto)}}" class="card-img-top" style="border:1px solid black;width:200px;height:150px;">
+            @endif
             <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <h5 class="card-title"><a href="{{route('product.lihat',$pro->id)}}">{{$pro->nama}}</a></h5>
+                <span class="text-success">Rp. {{$pro->harga}}</span>
+                <p class="card-text">{{$pro->deskripsi}}</p>
+                <div class="text-center">
+                    <a href="{{route('po.create',$pro->id)}}" class="text-center">Pesan</a>
+                </div>
             </div>
         </div>
-        <div class="card" style="width: 20rem;  margin-right: 3px; margin-bottom: 5px;">
-            <img src="/assets/material/images/background-2.jpg" class="card-img-top" style="width:100%;">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div class="card" style="width: 20rem;  margin-right: 3px; margin-bottom: 5px;">
-            <img src="/assets/material/images/background-2.jpg" class="card-img-top" style="width:100%;">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div class="card" style="width: 20rem;  margin-right: 3px; margin-bottom: 5px;">
-            <img src="/assets/material/images/background-2.jpg" class="card-img-top" style="width:100%;">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div class="card" style="width: 20rem;  margin-right: 3px; margin-bottom: 5px;">
-            <img src="/assets/material/images/background-2.jpg" class="card-img-top" style="width:100%;">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div class="card" style="width: 20rem;  margin-right: 3px; margin-bottom: 5px;">
-            <img src="/assets/material/images/background-2.jpg" class="card-img-top" style="width:100%;">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div class="card" style="width: 20rem;  margin-right: 3px; margin-bottom: 5px;">
-            <img src="/assets/material/images/background-2.jpg" class="card-img-top" style="width:100%;">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div class="card" style="width: 20rem;  margin-right: 3px; margin-bottom: 5px;">
-            <img src="/assets/material/images/background-2.jpg" class="card-img-top" style="width:100%;">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div class="card" style="width: 20rem;  margin-right: 3px; margin-bottom: 5px;">
-            <img src="/assets/material/images/background-2.jpg" class="card-img-top" style="width:100%;">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div class="card" style="width: 20rem;  margin-right: 3px; margin-bottom: 5px;">
-            <img src="/assets/material/images/background-2.jpg" class="card-img-top" style="width:100%;">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div class="card" style="width: 20rem;  margin-right: 3px; margin-bottom: 5px;">
-            <img src="/assets/material/images/background-2.jpg" class="card-img-top" style="width:100%;">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-        <div class="card" style="width: 20rem;  margin-right: 3px; margin-bottom: 5px;">
-            <img src="/assets/material/images/background-2.jpg" class="card-img-top" style="width:100%;">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-
+    @endforeach
+    {{ $produk->links() }}
     </div>
 </div>
 @endsection
@@ -155,4 +104,17 @@
     color:#FFF;
 }
 </style>
+
+<link rel="stylesheet" href="/assets/material/bower_components/select2/dist/css/select2.min.css">
+@endpush
+
+@push('footer')
+<script src="/assets/material/bower_components/select2/dist/js/select2.full.min.js"></script>
+
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+  });
+</script>
 @endpush

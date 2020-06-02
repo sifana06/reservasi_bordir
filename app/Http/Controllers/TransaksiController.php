@@ -46,4 +46,9 @@ class TransaksiController extends Controller
     {
         
     }
+
+    public function getDataHistory()
+    {
+        
+    }
 }

@@ -45,7 +45,6 @@
                     </div>
                 </div>
                 <div class="box-footer">
-                    <button type="reset" class="btn btn-primary btn-sm bg-navy">Reset</button>
                     <button type="submit" class="btn btn-success btn-sm bg-green">Simpan</button>
                 </div>
             </form>

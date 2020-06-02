@@ -43,7 +43,7 @@
               <a href="{{route('home')}}">Dashboard <span class="sr-only">(current)</span></a>
             </li>
             <li class="{{ Route::currentRouteName() == 'toko.index' ? 'active' : ''}}">
-              <a href="{{route('store.index')}}">Data Toko</a>
+              <a href="{{route('store.index')}}">Toko</a>
             </li>
             <li class="{{ Route::currentRouteName() == 'po.index' ? 'active' : ''}}">
                 <a href="{{route('po.index')}}">Pesanan Saya</a>

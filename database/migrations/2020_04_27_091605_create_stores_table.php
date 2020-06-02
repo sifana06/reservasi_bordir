@@ -17,8 +17,12 @@ class CreateStoresTable extends Migration
             $table->bigIncrements('id');
             $table->integer('pemilik_id')->nullable();
             $table->string('nama', 30);
-            $table->text('alamat');
+            $table->string('foto',191)->nullable();
             $table->string('phone', 13);
+            $table->string('kabupaten',3);
+            $table->string('kecamatan',3);
+            $table->string('desa',3);
+            $table->text('alamat');
             $table->timestamps();
         });
     }

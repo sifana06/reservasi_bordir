@@ -6,7 +6,7 @@
   <div class="col-xs-12">
       <div class="box">
         <div class="box-header">
-          <a href="#" class="btn btn-secondary bg-green btn-sm pull-left" style="margin-top: 0px; margin-bottom: 0px;"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Produk</a>
+          <a href="{{route('product.create')}}" class="btn btn-secondary bg-green btn-sm pull-left" style="margin-top: 0px; margin-bottom: 0px;"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Produk</a>
         </div>
       </div>
     </div>
@@ -37,7 +37,8 @@
               <thead>
                   <tr>
                   <th width="10">No</th>
-                  <th width="250">Nama Produk</th>
+                  <th width="250">Produk</th>
+                  <th width="250">Nama Toko</th>
                   <th width="150">Jenis Bordir</th>
                   <th>Deskripsi</th>
                   <th width="50">Action</th>
@@ -85,7 +86,8 @@
         ajax: '{!! route('product.getdata') !!}',
         columns: [
         { data: 'DT_RowIndex', orderable: false, searchable: false },
-        { data: 'nama', name: 'nama' },
+        { data: 'nama_produk', name: 'nama_produk' },
+        { data: 'nama_toko', name: 'nama_toko' },
         { data: 'jenis', name: 'jenis' },
         { data: 'deskripsi', name: 'deskripsi' },
         { data: 'action', name: 'action', orderable: false, searchable: false }

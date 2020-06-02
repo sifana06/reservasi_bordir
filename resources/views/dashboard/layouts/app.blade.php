@@ -139,7 +139,7 @@
           </a>
         </li>
         @endif
-        @if(Auth::user()->role == 'pelanggan')
+        <!-- @if(Auth::user()->role == 'pelanggan')
         <li class="{{ Route::currentRouteName() == 'toko.index' || Route::currentRouteName() == 'toko.edit' ||Route::currentRouteName() == 'toko.create'  ? 'active' : '' }}">
           <a href="">
             <i class="fa fa-building-o"></i> <span>Data Toko</span>
@@ -150,7 +150,7 @@
             <i class="fa fa-building-o"></i> <span>Data Pesanan</span>
           </a>
         </li>
-        @endif
+        @endif -->
         <li class="{{ Route::currentRouteName() == 'cost.all' ||Route::currentRouteName() == 'cost.create' ||Route::currentRouteName() == 'cost.edit' ? 'active' : '' }}">
           <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-sign-out"></i><span>Keluar</span></a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

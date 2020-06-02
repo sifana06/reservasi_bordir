@@ -20,13 +20,16 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
 
+Route::get('kabupaten/kecamatan/{id}', 'StoreController@getKecamatan');
+Route::get('kecamatan/desa/{id}', 'StoreController@getDesa');
+
 Route::get('/', 'DashboardController@index')->name('dashboard.index');
 Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function(){
     Route::get('/', 'DashboardController@index')->name('dashboard.index');
     Route::get('home', 'DashboardController@dashboard')->name('dashboard');
 
     Route::get('profile', 'DashboardController@profile')->name('profile');
-    Route::post('profile', 'DashboardController@profileUpdate')->name('profile.update');
+    Route::put('profile', 'DashboardController@profileUpdate')->name('profile.update');
 
     Route::group(['middleware' => 'auth.isAdmin'], function(){
         Route::get('settings', 'SettingController@index')->name('setting');
@@ -60,6 +63,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function(){
         Route::get('toko/edit/{id}', 'StoreController@edit')->name('toko.edit');
         Route::put('toko/update/{id}', 'StoreController@update')->name('toko.update');
         Route::get('toko/{id}/delete','StoreController@destroy')->name('toko.delete');
+        Route::get('toko/hapus/{id}', 'StoreController@delete')->name('toko.hapus');
 
     });
 
@@ -67,11 +71,13 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function(){
         Route::get('order', 'OrderController@index')->name('order.index');
         Route::get('order/create', 'OrderController@create')->name('order.create');
         Route::post('create', 'OrderController@store')->name('order.store');
+        Route::get('data-order','OrderController@getData')->name('order.getdata');
 
         Route::get('product', 'ProductController@index')->name('product.index');
         Route::get('product/create', 'ProductController@create')->name('product.create');
         Route::post('create', 'ProductController@store')->name('product.store');
         Route::get('data-product', 'ProductController@getData')->name('product.getdata');
+        Route::get('product/view/{id}', 'ProductController@show')->name('product.show');
         Route::get('product/edit/{id}', 'ProductController@edit')->name('product.edit');
         Route::put('product/update/{id}', 'ProductController@update')->name('product.update');
         Route::get('product/{id}/delete', 'ProductController@destroy')->name('product.delete');
@@ -82,6 +88,11 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function(){
         
         Route::group(['prefix' => 'order'], function(){
             Route::get('/', 'OrderController@order')->name('po.index');
+            Route::get('create/{id}', 'OrderController@createOrder')->name('po.create');
+            Route::get('add/', 'OrderController@buatOrder')->name('po.add');
+            Route::get('data-order', 'OrderController@getDataPelanggan')->name('po.getdatapelanggan');
+
+            Route::post('checkout-order','OrderController@saveCheckout')->name('po.checkout');
         });
 
         Route::group(['prefix' => 'history'], function(){
@@ -92,10 +103,16 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function(){
             Route::get('/', 'StoreController@indexStore')->name('store.index');
             Route::get('create', 'StoreController@createStore')->name('store.create');
             Route::post('/', 'StoreController@storeStore')->name('store.store');
-            Route::get('data-store', 'StoreController@getDataStore')->name('store.getdata');
+            Route::get('data-detail/{id}', 'StoreController@getDataDetail')->name('store.getdatadetail');
+            Route::get('detail/{id}', 'StoreController@detailStore')->name('store.detail');
             Route::get('edit/{id}', 'StoreController@editStore')->name('store.edit');
             Route::put('update/{id}', 'StoreController@updateStore')->name('store.update');
             Route::get('{id}/delete','StoreController@delete')->name('store.delete');
+        });
+
+        Route::group(['prefix' => 'produk'], function()
+        {
+            Route::get('view/{id}', 'HomeController@show')->name('product.lihat');
         });
     });
 });

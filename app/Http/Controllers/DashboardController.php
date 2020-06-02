@@ -18,7 +18,12 @@ class DashboardController extends Controller
 
     public function dashboard()
     {
-        return view('dashboard.dashboard');
+        $check = auth()->user()->role;
+        if($check == 'pelanggan'){
+            return redirect()->route('home');
+        }else{
+            return view('dashboard.dashboard');
+        }
     }
 
     public function create()
@@ -59,5 +64,39 @@ class DashboardController extends Controller
         }else{
             return view('dashboard.profile');
         }
+    }
+    
+    public function profileUpdate(Request $request)
+    {
+        $messages = [
+            'required' => ':attribute tidak boleh kosong.',
+            'regex'    => ':attribute harus berupa karakter alphabet.',
+        ];
+
+        $customAttributes = [
+            'name' => 'Nama',
+            'phone' => 'Telepon',
+            'no_ijin' => 'Nomor Izin Usaha',
+        ];
+
+        $valid = $request->validate([
+            'name' => 'required|regex:/^[\pL\s\-]+$/u',
+            'phone' => 'required',
+        ],$messages,$customAttributes);
+
+        if($valid == true){
+            $user = auth()->user();
+            $user->name = $request->name;
+            $user->phone = $request->phone;
+            $user->no_ijin = $request->no_ijin;
+    
+            if (isset($request->new_password) && $request->new_password == $request->confirm_password) {
+                $user->password = bcrypt($request->new_password);
+            }
+            $user->save();
+
+            return redirect()->route('profile')->with('success', 'Profile updated successfully.');
+        }
+        return redirect()->route('profile')->with('error', 'Profile updated is failed.');
     }
 }
