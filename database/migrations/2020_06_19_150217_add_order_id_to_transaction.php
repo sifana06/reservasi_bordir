@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddNoIjinToUsers extends Migration
+class AddOrderIdToTransaction extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddNoIjinToUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('no_ijin',25)->nullable()->after('alamat');
+        Schema::table('transactions', function (Blueprint $table) {
+            $table->unsignedInteger('order_id')->after('id');
+            $table->dropColumn('status');
         });
     }
 
@@ -25,8 +26,8 @@ class AddNoIjinToUsers extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('no_ijin');
+        Schema::table('transactions', function (Blueprint $table) {
+            $table->dropColumn('order_id');
         });
     }
 }

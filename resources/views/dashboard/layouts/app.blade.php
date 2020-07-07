@@ -101,7 +101,7 @@
             <i class="fa fa-credit-card"></i> <span>Data Rekening</span>
           </a>
         </li>
-        <li class="{{ Route::currentRouteName() == 'transaksi.index' || Route::currentRouteName() == 'transaksi.edit' ||Route::currentRouteName() == 'transaksi.create'  ? 'active' : '' }}">
+        <!-- <li class="{{ Route::currentRouteName() == 'transaksi.index' || Route::currentRouteName() == 'transaksi.edit' ||Route::currentRouteName() == 'transaksi.create'  ? 'active' : '' }}">
           <a href="{{route('transaksi.index')}}">
             <i class="fa fa-refresh"></i> <span>Data Transaksi</span>
           </a>
@@ -110,7 +110,7 @@
           <a href="{{route('setting')}}">
             <i class="fa fa-cogs"></i> <span>Setting</span>
           </a>
-        </li>
+        </li> -->
         @endif
         @if(Auth::user()->role == 'pemilik')
         <li class="{{ Route::currentRouteName() == 'toko.index' || Route::currentRouteName() == 'toko.edit' ||Route::currentRouteName() == 'toko.create'  ? 'active' : '' }}">

@@ -40,8 +40,9 @@
                 <th>Customers</th>
                 <th>Products</th>
                 <th>Status</th>
+                <th>Pembayaran</th>
                 <th>Total</th>
-                <th width="50">Action</th>
+                <th width="10">Opsi</th>
               </tr>
             </thead>
           </table>
@@ -91,6 +92,7 @@
         { data: 'customers', name: 'customers' },
         { data: 'products', name: 'products' },
         { data: 'status', name: 'status' },
+        { data: 'pembayaran', name: 'pembayaran' },
         { data: 'total', name: 'total' },
         { data: 'action', name: 'action', orderable: false, searchable: false }
         ]

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddNoIjinToUsers extends Migration
+class AddStatusPenerimaToOrders extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddNoIjinToUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('no_ijin',25)->nullable()->after('alamat');
+        Schema::table('orders', function (Blueprint $table) {
+            $table->string('status_penerima',20)->nullable()->after('received_at');
         });
     }
 
@@ -25,8 +25,8 @@ class AddNoIjinToUsers extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('no_ijin');
+        Schema::table('orders', function (Blueprint $table) {
+            $table->dropColumn('status_penerima');
         });
     }
 }

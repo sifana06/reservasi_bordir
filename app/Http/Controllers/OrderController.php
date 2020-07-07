@@ -9,6 +9,10 @@ use App\Models\Order;
 use App\Models\Store;
 use App\Models\Kabupaten;
 use Carbon\Carbon;
+use App\Models\Transaksi;
+use App\Models\Rekening;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class OrderController extends Controller
 {
@@ -42,12 +46,69 @@ class OrderController extends Controller
 
     public function edit($id)
     {
-        //
+        $data['order'] = Order::with(['get_product','cek_kabupaten','cek_kecamatan','cek_desa'])->find($id);
+        // $data['kabupaten'] = Kabupaten::select(['id','nama'])->get();
+        $data['order'] = Order::find($id);
+        $cek = Order::find($id);
+        $data['rekening'] = Rekening::where('pemilik_id', $cek->pemilik_id)->get();
+
+        return view('dashboard.order.edit', $data);
     }
 
     public function update(Request $request, $id)
     {
-        //
+        // $messages = [
+        //     'required' => ':attribute tidak boleh kosong.'
+        // ];
+        // $customAttributes = [
+        //     'user_id' => 'User ID',
+        //     'store_id'=> 'Store ID',
+        //     'product_id' => 'Product ID',
+        //     'order_number' => 'Order Number',
+        //     'foto'=> 'Foto Bordir',
+        //     'jenis_bordir' => 'Jenis Bordir',
+        //     'keterangan' => 'Keterangan',
+        //     'nama_pelanggan'=> 'Nama Pelanggan',
+        //     'email' => 'Email',
+        //     'telepon' => 'Telepon',
+        //     'kabupaten'=> 'Kabupaten',
+        //     'kecamatan' => 'Kecamatan',
+        //     'desa' => 'Desa',
+        //     'alamat'=> 'Alamat',
+        //     'catatan' => 'Catatan',
+        //     'deadline' => 'Deadline',
+        //     'jumlah'=> 'Jumlah',
+        //     'harga' => 'Harga',
+        // ];
+
+        // $valid = $request->validate([
+        //     'product_id' => 'required',
+        //     'jenis_bordir' => 'required',
+        //     'nama_pelanggan' => 'required',
+        //     'telepon' => 'required',
+        //     'kabupaten' => 'required',
+        //     'kecamatan' => 'required',
+        //     'desa' => 'required',
+        //     'alamat' => 'required',
+        //     'catatan' => 'required',
+        //     'deadline' => 'required',
+        //     'jumlah' => 'required',
+        //     'harga' => 'required',
+        // ],$messages,$customAttributes);
+
+        // if($valid == true){
+            $order = Order::find($id);
+            $order->status_order = $request->status_order;
+            $order->status_pembayaran = $request->status_pembayaran;
+            $order->tipe_pembayaran = $request->tipe_pembayaran;
+            $order->tanggal_pembayaran = Carbon::parse($request->tanggal_pembayaran)->format('y/m/d');
+            $order->status_pengiriman = $request->status_pengiriman;
+            if($order->order_at == NULL){
+                $order->order_at = Carbon::now();
+            }
+            $order->save();
+        // }
+        return redirect()->route('order.index');
     }
 
     public function destroy($id)
@@ -58,7 +119,7 @@ class OrderController extends Controller
     public function getData()
     {
         $pemilik_id = auth()->user()->id;
-        $query = Order::with(['product','user_customer','store_product'])->select(['id', 'user_id','store_id','product_id','order_number','foto','jenis_bordir','keterangan','nama_pelanggan','email','telepon','kabupaten','kecamatan','desa','alamat','catatan','deadline','jumlah','harga','total','status_order','status_pengiriman','tipe_pembayaran','tipe_pengiriman','order_at','received_at', 'created_at'])->where('pemilik_id', $pemilik_id);
+        $query = Order::with(['product','user_customer','store_product'])->select(['id', 'user_id','store_id','product_id','order_number','foto','jenis_bordir','keterangan','nama_pelanggan','email','telepon','kabupaten','kecamatan','desa','alamat','catatan','deadline','jumlah','harga','total','status_order','status_pembayaran','status_pengiriman','tipe_pembayaran','order_at','received_at', 'created_at'])->where('pemilik_id', $pemilik_id);
 
         return DataTables::of($query)
             ->addColumn('order_number', function($order){
@@ -72,24 +133,75 @@ class OrderController extends Controller
                 return $order->product->nama.'<div>Jenis Bordir: '.$order->jenis_bordir.'</div>';
             })
             ->addColumn('status', function($order){
-                return '<div class="small text-muted">Status Pesanan </div><div> <small><li class="fa fa-circle fa-xs" style="color:#f1c40f;"></li></small> '.ucwords($order->status_order).'</div>
-                <div class="small text-muted">Status Pengiriman </div><div> <small><li class="fa fa-circle fa-xs"></li></small> ------</div>';
+                switch ($order->status_order) {
+                    case 'order':
+                        $class = 'style="color:#00c0ef;"';
+                    break;
+                    case 'cancel':
+                        $class = 'style="color:#f56954;"';
+                    break;
+                    case 'pending':
+                        $class = 'style="color:#f1c40f;"';
+                    break;
+                    case 'success':
+                        $class = 'style="color:#00a65a;"';
+                    break;
+                    default:
+                        $class = $order->status_order;
+                    break;
+                }
+                switch ($order->status_pengiriman) {
+                    case 'belum dikirim':
+                        $class_pengiriman = 'style="color:#f1c40f;"';
+                    break;
+                    case 'sudah dikirim':
+                        $class_pengiriman = 'style="color:#00a65a;"';
+                    break;
+                    default:
+                        $class_pengiriman = $order->status_pengiriman;
+                    break;
+                }
+                switch ($order->status_pengiriman) {
+                    case 'belum dikirim':
+                        $status_pengiriman = "Belum Dikirim";
+                    break;
+                    case 'sudah dikirim':
+                        $status_pengiriman = "Sudah Dikirim";
+                    break;
+                    default:
+                        $status_pengiriman = '----------';
+                    break;
+                }
+                return '<div class="small text-muted">Status Pesanan </div><div> <small><li class="fa fa-circle fa-xs" '.$class.'></li></small> '.ucwords($order->status_order).'</div>
+                <div class="small text-muted">Status Pengiriman </div><div> <small><li class="fa fa-circle fa-xs" '.$class_pengiriman.'></li></small> '.$status_pengiriman.'<div>';
+            })
+            ->addColumn('pembayaran', function($order){
+                switch ($order->status_pembayaran) {
+                    case 'belum dibayar':
+                        $class = 'style="color:#f1c40f;"';
+                    break;
+                    case 'sudah dibayar':
+                        $class = 'style="color:#00a65a;"';
+                    break;
+                    default:
+                        $class = $order->status_pembayaran;
+                    break;
+                }
+                
+                if($order->status_pembayaran == NULL){
+                    $output = '<div class="small text-muted">Status Pembayaran </div><div> <small><li class="fa fa-circle fa-xs" '.$class.'></li></small> --------</div>';
+                }else{
+                    $output = '<div class="small text-muted">Status Pembayaran </div><div> <small><li class="fa fa-circle fa-xs" '.$class.'></li></small> '.ucwords($order->status_pembayaran).'</div>';
+                }
+                return $output;
             })
             ->addColumn('total', function($order){
-                return $order->total;
+                return 'Rp. '.$order->total;
             })
             ->editColumn('action', function ($order) {
-                return '<div class="input-group-btn">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="fa fa-bars"></span></button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Jadi Order</a></li>
-                                <li><a href="#">Candel Order</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Edit Order</a></li>
-                            </ul>
-                        </div>';
+                return '<div class="text-center"><a href="'.route('order.edit',$order->id).'" title="Terima"><span class="fa fa-pencil text-success" style="margin-right:5px;"> </span> </a></div>';
             })
-            ->rawColumns(['order_number', 'customers', 'products', 'status', 'total', 'action'])
+            ->rawColumns(['order_number', 'customers', 'products', 'status', 'pembayaran', 'total', 'action'])
             ->addIndexColumn()
             ->make(true);
     }
@@ -275,10 +387,63 @@ class OrderController extends Controller
         }
     }
 
+    public function editOrder($id)
+    {
+        $data['kabupaten'] = Kabupaten::select(['id','nama'])->get();
+        $data['order'] = Order::find($id);
+        $cek = Order::find($id);
+        // $pemilik_id = $cek->pemilik_id;
+        $data['rekening'] = Rekening::where('pemilik_id', $cek->pemilik_id)->get();
+
+        return view('pelanggan.order.edit',$data);
+    }
+
+    public function updateOrder(Request $request, $id)
+    {
+        // //cek foto
+        if($request->bukti_transaksi != NULL){
+            $cover = $request->file('bukti_transaksi');
+            $extension = $cover->getClientOriginalExtension();
+            Storage::disk('public')->put($cover->getFilename().'.'.$extension,  File::get($cover));
+            
+            $order = Order::find($id);
+            $order->rekening_id = $request->rekening_id;
+            $order->tipe_pembayaran = $request->tipe_pembayaran;
+            $order->status_penerima = $request->status_penerima;
+            if($request->status_penerima != NULL){
+                $order->received_at = Carbon::now();
+            }
+            if($request->status_pembayaran != NULL){
+                $order->status_pembayaran = $request->status_pembayaran;
+            }else{
+                $order->status_pembayaran = "belum bayar";
+            }
+            $order->tanggal_pembayaran = Carbon::parse($request->tanggal_pembayaran)->format('y/m/d');
+            $order->bukti_transaksi = $cover->getFilename().'.'.$extension;
+            $order->save();
+        }else{
+            $order = Order::find($id);
+            $order->rekening_id = $request->rekening_id;
+            $order->tipe_pembayaran = $request->tipe_pembayaran;
+            $order->status_penerima = $request->status_penerima;
+            if($request->status_penerima != NULL){
+                $order->received_at = Carbon::now();
+            }
+            if($request->status_pembayaran != NULL){
+                $order->status_pembayaran = $request->status_pembayaran;
+            }else{
+                $order->status_pembayaran = "belum bayar";
+            }
+            $order->tanggal_pembayaran = Carbon::parse($request->tanggal_pembayaran)->format('y/m/d');
+            $order->save();
+        }
+        return redirect()->route('po.index');
+    }
+
     public function getDataPelanggan()
     {
         $user_id = auth()->user()->id;
-        $query = Order::with(['product','user_customer','store_product'])->select(['id', 'user_id','store_id','product_id','order_number','foto','jenis_bordir','keterangan','nama_pelanggan','email','telepon','kabupaten','kecamatan','desa','alamat','catatan','deadline','jumlah','harga','total','status_order','status_pengiriman','tipe_pembayaran','tipe_pengiriman','order_at','received_at', 'created_at'])->where('user_id', $user_id);
+        $query = Order::with(['product','user_customer','store_product'])->select(['id', 'user_id','store_id','product_id','order_number','foto','jenis_bordir','keterangan','nama_pelanggan','email','telepon','kabupaten','kecamatan','desa','alamat','catatan','deadline','jumlah','harga','total','status_order','status_pembayaran','tipe_pembayaran','order_at','received_at', 'created_at'])->where('user_id', $user_id);
 
         return DataTables::of($query)
             ->addColumn('order', function($order){
@@ -292,16 +457,75 @@ class OrderController extends Controller
                 return $order->product->nama.'<div>Jenis Bordir: '.$order->jenis_bordir.'</div>';
             })
             ->addColumn('status', function($order){
-                return '<div class="small text-muted">Status Pesanan </div><div> <small><li class="fa fa-circle fa-xs" style="color:#f1c40f;"></li></small> '.ucwords($order->status_order).'</div>
-                <div class="small text-muted">Status Pengiriman </div><div> <small><li class="fa fa-circle fa-xs"></li></small> ------</div>';
+                switch ($order->status_order) {
+                    case 'order':
+                        $class = 'style="color:#00c0ef;"';
+                    break;
+                    case 'cancel':
+                        $class = 'style="color:#f56954;"';
+                    break;
+                    case 'pending':
+                        $class = 'style="color:#f1c40f;"';
+                    break;
+                    case 'success':
+                        $class = 'style="color:#00a65a;"';
+                    break;
+                    default:
+                        $class = $order->status;
+                    break;
+                }
+                switch ($order->status_pengiriman) {
+                    case 'belum dikirim':
+                        $class_pengiriman = 'style="color:#f1c40f;"';
+                    break;
+                    case 'sudah dikirim':
+                        $class_pengiriman = 'style="color:#00a65a;"';
+                    break;
+                    default:
+                        $class_pengiriman = $order->status_pengiriman;
+                    break;
+                }
+                switch ($order->status_pengiriman) {
+                    case 'belum dikirim':
+                        $status_pengiriman = "Belum Dikirim";
+                    break;
+                    case 'sudah dikirim':
+                        $status_pengiriman = "Sudah Dikirim";
+                    break;
+                    default:
+                        $status_pengiriman = '----------';
+                    break;
+                }
+                return '<div class="small text-muted">Status Pesanan </div><div> <small><li class="fa fa-circle fa-xs" '.$class.'></li></small> '.ucwords($order->status_order).'</div>
+                <div class="small text-muted">Status Pengiriman </div><div> <small><li class="fa fa-circle fa-xs" '.$class_pengiriman.'></li></small> '.$status_pengiriman.'<div>';
+            })
+            ->addColumn('pembayaran', function($order){
+                switch ($order->status_pembayaran) {
+                    case 'belum dibayar':
+                        $class = 'style="color:#f1c40f;"';
+                    break;
+                    case 'sudah dibayar':
+                        $class = 'style="color:#00a65a;"';
+                    break;
+                    default:
+                        $class = $order->status_pembayaran;
+                    break;
+                }
+                
+                if($order->status_pembayaran == NULL){
+                    $output = '<div class="small text-muted">Status Pembayaran </div><div> <small><li class="fa fa-circle fa-xs" '.$class.'></li></small> --------</div>';
+                }else{
+                    $output = '<div class="small text-muted">Status Pembayaran </div><div> <small><li class="fa fa-circle fa-xs" '.$class.'></li></small> '.ucwords($order->status_pembayaran).'</div>';
+                }
+                return $output;
             })
             ->addColumn('total', function($order){
                 return '<span>'.$order->jumlah.' Pcs</span><div><span>Rp. '.$order->total.'</span></div>';
             })
-            // ->editColumn('action', function ($store) {
-            //     return '<a href="' . route('toko.edit',$store->id) . '"><span class="fa fa-pencil" style="margin-right:5px;"> </span> </a> | <a type="javascript:;" data-toggle="modal" data-target="#konfirmasi_hapus" data-href="' . route('toko.delete',['id'=>$store->id]) . '" title="Delete"> <span class="fa fa-trash" style="margin-left:5px;"> </span></a>';
-            // })
-            ->rawColumns(['order', 'customer', 'produk', 'status', 'total'])
+            ->editColumn('action', function ($store) {
+                return '<a href="' . route('po.editOrder',$store->id) . '"><span class="fa fa-pencil" style="margin-right:5px;"> </span> </a> | <a type="javascript:;" data-toggle="modal" data-target="#konfirmasi_hapus" data-href="' . route('toko.delete',['id'=>$store->id]) . '" title="Delete"> <span class="fa fa-trash" style="margin-left:5px;"> </span></a>';
+            })
+            ->rawColumns(['order', 'customer', 'produk', 'status', 'total','action'])
             ->addIndexColumn()
             ->make(true);
     }

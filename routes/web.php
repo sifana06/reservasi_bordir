@@ -72,6 +72,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function(){
         Route::get('order/create', 'OrderController@create')->name('order.create');
         Route::post('create', 'OrderController@store')->name('order.store');
         Route::get('data-order','OrderController@getData')->name('order.getdata');
+        Route::get('order/edit/{id}','OrderController@edit')->name('order.edit');
+        Route::put('order/update/{id}','OrderController@update')->name('order.update');
 
         Route::get('product', 'ProductController@index')->name('product.index');
         Route::get('product/create', 'ProductController@create')->name('product.create');
@@ -91,12 +93,15 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function(){
             Route::get('create/{id}', 'OrderController@createOrder')->name('po.create');
             Route::get('add/', 'OrderController@buatOrder')->name('po.add');
             Route::get('data-order', 'OrderController@getDataPelanggan')->name('po.getdatapelanggan');
-
+            
             Route::post('checkout-order','OrderController@saveCheckout')->name('po.checkout');
+            Route::get('edit-order/{id}','OrderController@editOrder')->name('po.editOrder');
+            Route::put('update-order/{id}','OrderController@updateOrder')->name('po.updateOrder');
         });
-
+        
         Route::group(['prefix' => 'history'], function(){
             Route::get('/', 'HistoryController@index')->name('history.index');
+            Route::get('data-history', 'OrderController@getData')->name('history.getdata');
         });
 
         Route::group(['prefix' => 'store'], function(){

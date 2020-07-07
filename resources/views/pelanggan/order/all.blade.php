@@ -43,7 +43,7 @@
                   <th>Produk</th>
                   <th>Status</th>
                   <th>Total</th>
-                  <!-- <th width="50">Action</th> -->
+                  <th width="50">Action</th>
                   </tr>
               </thead>
               </table>
@@ -91,7 +91,8 @@
         { data: 'customer', name: 'customer' },
         { data: 'produk', name: 'produk' },
         { data: 'status', name: 'status' },
-        { data: 'total', name: 'total' }
+        { data: 'total', name: 'total' },
+        { data: 'action', name: 'action' },
         ]
       });
     });

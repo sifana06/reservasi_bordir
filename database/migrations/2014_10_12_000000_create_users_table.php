@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('role')->default('pelanggan');
             $table->string('phone');
             $table->string('password');
-            $table->text('alamat');
+            $table->text('alamat')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -124,21 +124,6 @@
                     </div>
                 </div>
                 <div class="box box-info">
-                    <div class="box-header with-border" style="margin-left:0px;">
-                        <h4 style="margin-top:0px; margin-bottom:0px;">Pembayaran</h4>
-                    </div>
-                    <div class="box-body">
-                        <div class="form-group" style="margin-top:5px;margin-bottom:0px;">
-                            <label for="" style="margin-top:0px;margin-bottom:0px;">Tipe Pembayaran</label>
-                            <select name="tipe_pembayaran" class="form-control">
-                                <option value="">Cash On Delivery (COD)</option>
-                                <option value="">Cicilan</option>
-                                <option value="">Cicilan</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="box box-info">
                     <div class="box-body">
                         <button type="submit" class="btn btn-success btn-sm bg-green" style="width:175px;">Order</button>
                     </div>
