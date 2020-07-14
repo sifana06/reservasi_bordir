@@ -172,7 +172,7 @@ Then, run this script to get the list.
   border-bottom-left-radius: 0;
 }
 .skin-blue .main-sidebar .user-panel {
-  background: url(../../img/patterns/user-panel-bg_blue.jpg) no-repeat;
+  background: url(/assets/material/dist/img/patterns/user-panel-bg_blue.jpg) no-repeat;
 }
 .skin-blue .sidebar-menu > li > a {
   border-left: 3px solid transparent;
