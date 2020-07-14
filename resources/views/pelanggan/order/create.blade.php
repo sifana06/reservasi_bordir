@@ -3,7 +3,8 @@
 
 @section('content')
 <div class="row">
-    <form action="">
+    <form action="{{route('order.store')}}" method="post">
+    @csrf
         <div class="col-md-8">
             <div class="box box-info">
                 <div class="box-header with-border" style="margin-left:0px;">

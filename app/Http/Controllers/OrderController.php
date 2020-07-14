@@ -36,7 +36,7 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
-        //
+        
     }
 
     public function show($id)
@@ -544,10 +544,10 @@ class OrderController extends Controller
             ->addColumn('total', function($order){
                 return '<span>'.$order->jumlah.' Pcs</span><div><span>Rp. '.$order->total.'</span></div>';
             })
-            // ->editColumn('action', function ($store) {
-            //     return '<a href="' . route('po.editOrder',$store->id) . '"><span class="fa fa-pencil" style="margin-right:5px;"> </span> </a> | <a type="javascript:;" data-toggle="modal" data-target="#konfirmasi_hapus" data-href="' . route('toko.delete',['id'=>$store->id]) . '" title="Delete"> <span class="fa fa-trash" style="margin-left:5px;"> </span></a>';
-            // })
-            ->rawColumns(['order', 'customer', 'produk', 'status', 'total'])
+            ->editColumn('action', function ($store) {
+                return '<a href="' . route('po.editOrder',$store->id) . '"><span class="fa fa-pencil" style="margin-right:5px;"> </span> </a> | <a type="javascript:;" data-toggle="modal" data-target="#konfirmasi_hapus" data-href="' . route('toko.delete',['id'=>$store->id]) . '" title="Delete"> <span class="fa fa-trash" style="margin-left:5px;"> </span></a>';
+            })
+            ->rawColumns(['order', 'customer', 'produk', 'status', 'total','action'])
             ->addIndexColumn()
             ->make(true);
     }

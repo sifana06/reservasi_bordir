@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Order;
+use DataTables;
+use App\Models\Product;
+use App\Models\Store;
 
 class HistoryController extends Controller
 {
@@ -11,15 +14,15 @@ class HistoryController extends Controller
     public function index()
     {
         $user_id = auth()->user()->id;
-        $data['history'] = Order::with(['product','user_customer','store_product'])->where('user_id', $user_id)->where('status_penerima', '=', 'sudah diterima');
-        dd($data['history']);
+        $data['history'] = Order::with(['product','user_customer','store_product'])->where('user_id', '=', $user_id)->where('status_penerima', '=', 'sudah diterima')->get();
+        // dd($data['history']);
         return view('pelanggan.history.all', $data);
     }
     
     public function getData()
     {
         $user_id = auth()->user()->id;
-        $query = Order::with(['product','user_customer','store_product'])->select(['id', 'user_id','store_id','product_id','order_number','foto','jenis_bordir','keterangan','nama_pelanggan','email','telepon','kabupaten','kecamatan','desa','alamat','catatan','deadline','jumlah','harga','total','status_order','status_pembayaran','tipe_pembayaran','status_penerima','order_at','received_at', 'created_at'])->where('user_id', $user_id)->where('status_penerima', "sudah diterima");
+        $query = Order::select(['id', 'user_id','store_id','pemilik_id','product_id','order_number','foto','jenis_bordir','keterangan','nama_pelanggan','email','telepon','kabupaten','kecamatan','desa','alamat','catatan','deadline','jumlah','harga','total','status_order','status_pembayaran','tipe_pembayaran','status_penerima','status_pengiriman','order_at','received_at', 'created_at'])->where('user_id', '=', $user_id)->where('status_penerima', '=', 'sudah diterima');
 
         return DataTables::of($query)
             ->addColumn('order', function($order){
@@ -47,7 +50,7 @@ class HistoryController extends Controller
                         $class = 'style="color:#00a65a;"';
                     break;
                     default:
-                        $class = $order->status;
+                        $class = 'style="color:#000000;"';
                     break;
                 }
                 switch ($order->status_pengiriman) {
@@ -58,7 +61,7 @@ class HistoryController extends Controller
                         $class_pengiriman = 'style="color:#00a65a;"';
                     break;
                     default:
-                        $class_pengiriman = $order->status_pengiriman;
+                        $class_pengiriman = 'style="color:#000000;"';
                     break;
                 }
                 switch ($order->status_pengiriman) {

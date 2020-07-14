@@ -75,7 +75,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function(){
         Route::get('data-order','OrderController@getData')->name('order.getdata');
         Route::get('order/edit/{id}','OrderController@edit')->name('order.edit');
         Route::put('order/update/{id}','OrderController@update')->name('order.update');
-
+        
         Route::get('product', 'ProductController@index')->name('product.index');
         Route::get('product/create', 'ProductController@create')->name('product.create');
         Route::post('create', 'ProductController@store')->name('product.store');
@@ -85,7 +85,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function(){
         Route::put('product/update/{id}', 'ProductController@update')->name('product.update');
         Route::get('product/{id}/delete', 'ProductController@destroy')->name('product.delete');
     });
-
+    
     Route::group(['prefix' => 'p', 'middleware' => 'role:isPelanggan'], function(){
         Route::get('home', 'HomeController@index')->name('home');
         
@@ -94,6 +94,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function(){
             Route::get('create/{id}', 'OrderController@createOrder')->name('po.create');
             Route::get('add/', 'OrderController@buatOrder')->name('po.add');
             Route::get('data-order', 'OrderController@getDataPelanggan')->name('po.getdatapelanggan');
+            Route::post('create', 'OrderController@saveOrder')->name('order.store');
             
             Route::post('checkout-order','OrderController@saveCheckout')->name('po.checkout');
             Route::get('edit-order/{id}','OrderController@editOrder')->name('po.editOrder');
@@ -102,7 +103,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function(){
         
         Route::group(['prefix' => 'history'], function(){
             Route::get('/', 'HistoryController@index')->name('history.index');
-            Route::get('data-history', 'OrderController@getData')->name('history.getdata');
+            Route::get('data-history', 'HistoryController@getData')->name('history.getdata');
         });
 
         Route::group(['prefix' => 'store'], function(){
