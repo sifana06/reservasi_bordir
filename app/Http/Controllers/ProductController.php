@@ -74,6 +74,7 @@ class ProductController extends Controller
                 'pemilik_id' => $pemilik_id,
                 'nama' => $request->get('nama'),
                 'jenis_bordir' => $request->get('jenis_bordir'),
+                'harga' => $request->get('harga'),
                 'foto' => $cover->getFilename().'.'.$extension,
                 'deskripsi' => $request->get('deskripsi'),
             ]);

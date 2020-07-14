@@ -47,7 +47,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function(){
         Route::get('transaksi', 'TransaksiController@index')->name('transaksi.index');
         Route::get('transaksi/create', 'TransaksiControler@create')->name('transaksi.create');
         Route::post('create', 'TransaksiController@store')->name('transaksi.store');
-        
+        Route::get('transaksi/data', 'TransaksiController@getData')->name('transaksi.getdata');
+         
         Route::get('rekening', 'RekeningController@index')->name('rekening.index');
         Route::get('rekening/create', 'RekeningController@create')->name('rekening.create');
         Route::post('rekening', 'RekeningController@store')->name('rekening.store');

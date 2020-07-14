@@ -70,11 +70,11 @@ class RekeningController extends Controller
         ];
         
         $customAttributes = [
-            'nama' => 'Nama',
+            'nama_bank' => 'Nama',
         ];
 
         $valid = $request->validate([
-            'nama' => 'required'
+            'nama_bank' => 'required'
         ],$messages,$customAttributes);
 
         //Cek Validasi
@@ -82,19 +82,22 @@ class RekeningController extends Controller
             $rekening = Rekening::find($id); //untuk mencari data berdasarkan id
 
             //Coba kamu terusin, sama kaya yg di controller StoreController
-            // $rekening->nama = $request->nama;
-            // $rekening->save();
+            $rekening->nama_bank = $request->nama_bank;
+            $rekening->save();
             
-            return redirect()->route('toko.index')->with('success','Toko berhasil diubah.');
+            return redirect()->route('rekening.index')->with('success','Rekening berhasil diubah.');
         }
         else {
             return redirect()->back();
         }
     }
-
+    
     public function destroy($id)
     {
-        //
+        $rekening = Rekening::find($id);
+        $rekening->delete();
+        return redirect()->route('rekening.index')->with('success','Rekening berhasil dihapus.');
+
     }
 
     public function getData()

@@ -3,13 +3,13 @@
 
 @section('content')
 <div class="row">
-  <div class="col-xs-12">
+  <!-- <div class="col-xs-12">
     <div class="box">
       <div class="box-header">
         <a href="#" class="btn btn-secondary bg-green btn-sm pull-left" style="margin-top: 0px; margin-bottom: 0px;"><i class="fa fa-plus" aria-hidden="true"></i> Tambah Order</a>
       </div>
     </div>
-  </div>
+  </div> -->
   <div class="col-md-12">
       <!-- Horizontal Form -->
       @if ($message = Session::get('success'))

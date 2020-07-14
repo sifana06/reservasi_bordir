@@ -190,7 +190,7 @@ Then, run this script to get the list.
   }
 }
 .skin-blue-light .main-sidebar .user-panel {
-  background: url(../../img/patterns/user-panel-bg_blue.jpg) no-repeat;
+  background: url(/assets/material/dist/img/patterns/user-panel-bg_blue.jpg) no-repeat;
 }
 .skin-blue-light .sidebar-menu > li:hover > a,
 .skin-blue-light .sidebar-menu > li.active > a {

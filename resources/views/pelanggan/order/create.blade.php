@@ -56,9 +56,11 @@
                                     <label for="" style="margin-top:0px;margin-bottom:0px;">Telepon</label>
                                     <input type="text" class="form-control" name="harga" style="margin-top:0px;margin-bottom:0px;">
                                 </div>
-                                <div class="form-group" style="margin-top:0px;margin-bottom:0px;">
+                                <div class="form-group" style="margin-top:5px;margin-bottom:0px;">
                                     <label for="" style="margin-top:0px;margin-bottom:0px;">Kecamatan</label>
-                                    <input type="text" class="form-control" name="harga" style="margin-top:0px;margin-bottom:0px;">
+                                        <select name="kecamatan" class="form-control">
+                                            <option>-- Kecamatan --</option>
+                                        </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -66,13 +68,20 @@
                                     <label for="" style="margin-top:0px;margin-bottom:0px;">Email</label>
                                     <input type="text" class="form-control" name="nama_produk" style="margin-top:0px;margin-bottom:0px;">
                                 </div>
-                                <div class="form-group" style="margin-top:0px;margin-bottom:0px;">
+                                <div class="form-group" style="margin-top:5px;margin-bottom:0px;">
                                     <label for="" style="margin-top:0px;margin-bottom:0px;">Kabupaten/Kota</label>
-                                    <input type="text" class="form-control" name="harga" style="margin-top:0px;margin-bottom:0px;">
+                                    <select name="kabupaten" class="form-control">
+                                        <option value="">--- Kabupaten  ---</option>
+                                        @foreach ($kabupaten as $value)
+                                            <option value="{{ $value->id }}">{{ $value->nama }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
-                                <div class="form-group" style="margin-top:0px;margin-bottom:0px;">
+                                <div class="form-group" style="margin-top:5px;margin-bottom:0px;">
                                     <label for="" style="margin-top:0px;margin-bottom:0px;">Desa</label>
-                                    <input type="text" class="form-control" name="harga" style="margin-top:0px;margin-bottom:0px;">
+                                    <select name="desa" class="form-control">
+                                        <option>-- Desa --</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -106,15 +115,16 @@
                 </div>
                 <div class="box box-info">
                     <div class="box-header with-border" style="margin-left:0px;">
-                        <h4 style="margin-top:0px; margin-bottom:0px;">Pembayaran</h4>
+                        <h4 style="margin-top:0px; margin-bottom:0px;">Toko</h4>
                     </div>
                     <div class="box-body">
                         <div class="form-group" style="margin-top:5px;margin-bottom:0px;">
                             <label for="" style="margin-top:0px;margin-bottom:0px;">Tipe Pembayaran</label>
                             <select name="tipe_pembayaran" class="form-control">
-                                <option value="">Cash On Delivery (COD)</option>
-                                <option value="">Cicilan</option>
-                                <option value="">Cicilan</option>
+                                <option value="">Pilih Toko</option>
+                                @foreach($ambilStore as $store)
+                                <option value="{{$store->id}}">{{$store->nama}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -200,5 +210,49 @@ $(document).ready(function() {
         autoclose: true,
     });
   })
+</script>
+<!-- Input Kecamatan -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('select[name="kabupaten"]').on('change', function() {
+            var kabupatenID = $(this).val();
+            if(kabupatenID) {
+                $.ajax({
+                    url: '/kabupaten/kecamatan/'+kabupatenID,
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+                        $('select[name="kecamatan"]').empty();
+                        $.each(data, function(key, value) {
+                            $('select[name="kecamatan"]').append('<option value="'+ key +'">'+ value +'</option>');
+                        });
+                    }
+                });
+            }else{
+                $('select[name="kecamatan"]').empty();
+            }
+        });
+    });
+
+    $(document).ready(function() {
+        $('select[name="kecamatan"]').on('change', function() {
+            var kabupatenID = $(this).val();
+            if(kabupatenID) {
+                $.ajax({
+                    url: '/kecamatan/desa/'+kabupatenID,
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+                        $('select[name="desa"]').empty();
+                        $.each(data, function(key, value) {
+                            $('select[name="desa"]').append('<option value="'+ key +'">'+ value +'</option>');
+                        });
+                    }
+                });
+            }else{
+                $('select[name="desa"]').empty();
+            }
+        });
+    });
 </script>
 @endpush

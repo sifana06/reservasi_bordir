@@ -421,6 +421,21 @@ class OrderController extends Controller
             $order->tanggal_pembayaran = Carbon::parse($request->tanggal_pembayaran)->format('y/m/d');
             $order->bukti_transaksi = $cover->getFilename().'.'.$extension;
             $order->save();
+
+            if($order->status_pembayaran == "sudah dibayar"){
+                $transaksi = new Transaksi([
+                    'order_id' => $order->id,
+                    'pemilik_id' => $order->pemilik_id,
+                    'pelanggan_id' => $order->user_id,
+                    'toko_id' => $order->store_id,
+                    'product_id' => $order->product_id,
+                    'rekening_id' => $order->rekening_id,
+                    'toko_id' => $order->store_id,
+                    'bukti_pembayaran' => $order->bukti_transaksi,
+                    'tanggal_transaksi' => $order->tanggal_pembayaran,
+                ]);
+                $transaksi->save();
+            }
         }else{
             $order = Order::find($id);
             $order->rekening_id = $request->rekening_id;
@@ -436,6 +451,21 @@ class OrderController extends Controller
             }
             $order->tanggal_pembayaran = Carbon::parse($request->tanggal_pembayaran)->format('y/m/d');
             $order->save();
+
+            if($order->status_pembayaran == "sudah dibayar"){
+                $transaksi = new Transaksi([
+                    'order_id' => $order->id,
+                    'pemilik_id' => $order->pemilik_id,
+                    'pelanggan_id' => $order->user_id,
+                    'product_id' => $order->product_id,
+                    'toko_id' => $order->store_id,
+                    'rekening_id' => $order->rekening_id,
+                    'toko_id' => $order->store_id,
+                    'bukti_pembayaran' => $order->bukti_transaksi,
+                    'tanggal_transaksi' => $order->tanggal_pembayaran,
+                ]);
+                $transaksi->save();
+            }
         }
         return redirect()->route('po.index');
     }
@@ -443,7 +473,7 @@ class OrderController extends Controller
     public function getDataPelanggan()
     {
         $user_id = auth()->user()->id;
-        $query = Order::with(['product','user_customer','store_product'])->select(['id', 'user_id','store_id','product_id','order_number','foto','jenis_bordir','keterangan','nama_pelanggan','email','telepon','kabupaten','kecamatan','desa','alamat','catatan','deadline','jumlah','harga','total','status_order','status_pembayaran','tipe_pembayaran','order_at','received_at', 'created_at'])->where('user_id', $user_id);
+        $query = Order::with(['product','user_customer','store_product'])->select(['id', 'user_id','store_id','product_id','order_number','foto','jenis_bordir','keterangan','nama_pelanggan','email','telepon','kabupaten','kecamatan','desa','alamat','catatan','deadline','jumlah','harga','total','status_order','status_pembayaran','tipe_pembayaran','status_pengiriman','order_at','received_at', 'created_at'])->where('user_id', $user_id);
 
         return DataTables::of($query)
             ->addColumn('order', function($order){
@@ -477,22 +507,14 @@ class OrderController extends Controller
                 switch ($order->status_pengiriman) {
                     case 'belum dikirim':
                         $class_pengiriman = 'style="color:#f1c40f;"';
-                    break;
-                    case 'sudah dikirim':
-                        $class_pengiriman = 'style="color:#00a65a;"';
-                    break;
-                    default:
-                        $class_pengiriman = $order->status_pengiriman;
-                    break;
-                }
-                switch ($order->status_pengiriman) {
-                    case 'belum dikirim':
                         $status_pengiriman = "Belum Dikirim";
                     break;
                     case 'sudah dikirim':
+                        $class_pengiriman = 'style="color:#00a65a;"';
                         $status_pengiriman = "Sudah Dikirim";
                     break;
                     default:
+                        $class_pengiriman = 'style="color:#000000;"';
                         $status_pengiriman = '----------';
                     break;
                 }
@@ -522,10 +544,10 @@ class OrderController extends Controller
             ->addColumn('total', function($order){
                 return '<span>'.$order->jumlah.' Pcs</span><div><span>Rp. '.$order->total.'</span></div>';
             })
-            ->editColumn('action', function ($store) {
-                return '<a href="' . route('po.editOrder',$store->id) . '"><span class="fa fa-pencil" style="margin-right:5px;"> </span> </a> | <a type="javascript:;" data-toggle="modal" data-target="#konfirmasi_hapus" data-href="' . route('toko.delete',['id'=>$store->id]) . '" title="Delete"> <span class="fa fa-trash" style="margin-left:5px;"> </span></a>';
-            })
-            ->rawColumns(['order', 'customer', 'produk', 'status', 'total','action'])
+            // ->editColumn('action', function ($store) {
+            //     return '<a href="' . route('po.editOrder',$store->id) . '"><span class="fa fa-pencil" style="margin-right:5px;"> </span> </a> | <a type="javascript:;" data-toggle="modal" data-target="#konfirmasi_hapus" data-href="' . route('toko.delete',['id'=>$store->id]) . '" title="Delete"> <span class="fa fa-trash" style="margin-left:5px;"> </span></a>';
+            // })
+            ->rawColumns(['order', 'customer', 'produk', 'status', 'total'])
             ->addIndexColumn()
             ->make(true);
     }

@@ -172,7 +172,7 @@ Then, run this script to get the list.
   border-bottom-left-radius: 0;
 }
 .skin-blue .main-sidebar .user-panel {
-  background: url(../../img/patterns/user-panel-bg_blue.jpg) no-repeat;
+  background: url(/assets/material/dist/img/patterns/user-panel-bg_blue.jpg) no-repeat;
 }
 .skin-blue .sidebar-menu > li > a {
   border-left: 3px solid transparent;
@@ -507,7 +507,7 @@ Then, run this script to get the list.
   }
 }
 .skin-blue-light .main-sidebar .user-panel {
-  background: url(../../img/patterns/user-panel-bg_blue.jpg) no-repeat;
+  background: url(/assets/material/dist/img/patterns/user-panel-bg_blue.jpg) no-repeat;
 }
 .skin-blue-light .sidebar-menu > li:hover > a,
 .skin-blue-light .sidebar-menu > li.active > a {
@@ -1185,7 +1185,7 @@ Then, run this script to get the list.
   border-bottom-left-radius: 0;
 }
 .skin-green .main-sidebar .user-panel {
-  background: url(../../img/patterns/user-panel-bg_green.jpg) no-repeat;
+  background: url(/assets/material/dist/img/patterns/user-panel-bg_green.jpg) no-repeat;
 }
 .skin-green .sidebar-menu > li > a {
   border-left: 3px solid transparent;
@@ -1520,7 +1520,7 @@ Then, run this script to get the list.
   }
 }
 .skin-green-light .main-sidebar .user-panel {
-  background: url(../../img/patterns/user-panel-bg_green.jpg) no-repeat;
+  background: url(/assets/material/dist/img/patterns/user-panel-bg_green.jpg) no-repeat;
 }
 .skin-green-light .sidebar-menu > li:hover > a,
 .skin-green-light .sidebar-menu > li.active > a {
@@ -1837,7 +1837,7 @@ Then, run this script to get the list.
   border-bottom-left-radius: 0;
 }
 .skin-red .main-sidebar .user-panel {
-  background: url(../../img/patterns/user-panel-bg_red.jpg) no-repeat;
+  background: url(/assets/material/dist/img/patterns/user-panel-bg_red.jpg) no-repeat;
 }
 .skin-red .sidebar-menu > li > a {
   border-left: 3px solid transparent;
@@ -2172,7 +2172,7 @@ Then, run this script to get the list.
   }
 }
 .skin-red-light .main-sidebar .user-panel {
-  background: url(../../img/patterns/user-panel-bg_red.jpg) no-repeat;
+  background: url(/assets/material/dist/img/patterns/user-panel-bg_red.jpg) no-repeat;
 }
 .skin-red-light .sidebar-menu > li:hover > a,
 .skin-red-light .sidebar-menu > li.active > a {
@@ -2489,7 +2489,7 @@ Then, run this script to get the list.
   border-bottom-left-radius: 0;
 }
 .skin-yellow .main-sidebar .user-panel {
-  background: url(../../img/patterns/user-panel-bg_yellow.jpg) no-repeat;
+  background: url(/assets/material/dist/img/patterns/user-panel-bg_yellow.jpg) no-repeat;
 }
 .skin-yellow .sidebar-menu > li > a {
   border-left: 3px solid transparent;
@@ -2824,7 +2824,7 @@ Then, run this script to get the list.
   }
 }
 .skin-yellow-light .main-sidebar .user-panel {
-  background: url(../../img/patterns/user-panel-bg_yellow.jpg) no-repeat;
+  background: url(/assets/material/dist/img/patterns/user-panel-bg_yellow.jpg) no-repeat;
 }
 .skin-yellow-light .sidebar-menu > li:hover > a,
 .skin-yellow-light .sidebar-menu > li.active > a {
@@ -3141,7 +3141,7 @@ Then, run this script to get the list.
   border-bottom-left-radius: 0;
 }
 .skin-purple .main-sidebar .user-panel {
-  background: url(../../img/patterns/user-panel-bg_purple.jpg) no-repeat;
+  background: url(/assets/material/dist/img/patterns/user-panel-bg_purple.jpg) no-repeat;
 }
 .skin-purple .sidebar-menu > li > a {
   border-left: 3px solid transparent;
@@ -3476,7 +3476,7 @@ Then, run this script to get the list.
   }
 }
 .skin-purple-light .main-sidebar .user-panel {
-  background: url(../../img/patterns/user-panel-bg_purple.jpg) no-repeat;
+  background: url(/assets/material/dist/img/patterns/user-panel-bg_purple.jpg) no-repeat;
 }
 .skin-purple-light .sidebar-menu > li:hover > a,
 .skin-purple-light .sidebar-menu > li.active > a {

@@ -73,6 +73,10 @@
                         </select>
                     </div>
                     <div class="form-group" style="margin-top:0px;">
+                        <label>Harga</label>
+                        <input type="text" name="harga" class="form-control">
+                    </div>
+                    <div class="form-group" style="margin-top:0px;">
                         <label>Deskripsi</label>
                         <textarea class="form-control" rows="3" name="deskripsi" placeholder="Deskripsi Produk"></textarea>
                     </div>

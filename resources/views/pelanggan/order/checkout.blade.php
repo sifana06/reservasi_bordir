@@ -37,6 +37,7 @@
                         </div>
                         <input type="text" name="product_id" value="{{$ambilProduk->id}}" hidden="true">
                         <input type="text" name="pemilik_id" value="{{$ambilProduk->pemilik_id}}" hidden="true">
+                        <input type="text" name="store_id" value="{{$ambilProduk->store_id}}" hidden="true">
                         <div class="form-group" style="margin-top:5px;margin-bottom:0px;">
                             <label for="">Nama Produk</label>
                             <input type="text" class="form-control" name="nama_produk" value="{{$ambilProduk->nama}}" readonly="true">
@@ -72,7 +73,7 @@
                                             <option>-- Kecamatan --</option>
                                         </select>
                                 </div>
-                            </div>
+                            </div> 
                             <div class="col-md-6">
                                 <div class="form-group" style="margin-top:5px;margin-bottom:0px;">
                                     <label for="">Email <small>(optional)</small></label>
@@ -85,7 +86,7 @@
                                         @foreach ($kabupaten as $value)
                                             <option value="{{ $value->id }}">{{ $value->nama }}</option>
                                         @endforeach
-                                </select>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="">Desa</label>

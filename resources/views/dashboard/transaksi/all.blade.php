@@ -31,17 +31,17 @@
       </div>
       <!-- /.box-header -->
       <div class="box-body">
-        <table id="user-table" class="table table-bordered table-striped" style="width:100%!important;">
+        <table id="transaksi-table" class="table table-bordered table-striped" style="width:100%!important;">
           <thead>
             <tr>
               <th width="10">No</th>
-              <th width="150">Nama</th>
-              <th>Nomor Pesanan</th>
-              <th>Tanggal</th>
-              <th>Status</th>
-              <th>Jumlah</th>
-              <th>Tipe Pembayaran</th>
-              <th width="50">Action</th>
+              <th width="150">Order ID</th>
+              <th>Produk</th>
+              <th>Rekening</th>
+              <th>Toko</th>
+              <th>Total Pembayaran</th>
+              <th>Tanggal Pembayaran</th>
+              <!-- <th width="50">Action</th> -->
             </tr>
           </thead>
         </table>
@@ -84,13 +84,15 @@
         responsive: true,
         processing: true,
         serverSide: true,
-        ajax: '',
+        ajax: '{!!route('transaksi.getdata')!!}',
         columns: [
         { data: 'DT_RowIndex', orderable: false, searchable: false },
-        { data: 'name', name: 'name' },
-        { data: 'kontak', name: 'kontak' },
-        { data: 'alamat', name: 'alamat' },
-        { data: 'action', name: 'action', orderable: false, searchable: false }
+        { data: 'order_id', name: 'order_id' },
+        { data: 'produk', name: 'produk' },
+        { data: 'rekening', name: 'rekening' },
+        { data: 'toko', name: 'toko' },
+        { data: 'total', name: 'total' },
+        { data: 'tanggal', name: 'tanggal' }
         ]
       });
     });
