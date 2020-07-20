@@ -37,8 +37,10 @@ class RekeningController extends Controller
         ];
 
         $valid = $request->validate([
-            'nama kolom' => 'rule validasi',
-        ],$messages,$customAttributes);
+            'nama_bank' => 'required|regex:/^[\pL\s\-]+$/u',
+            'no_rekening' => 'required|numeric',
+            'nama_pemilik' => 'required'
+        ]);
 
         $pemilik_id = auth()->user()->id;
         $rekening = new Rekening;

@@ -31,6 +31,18 @@
             </div>
         </div>
         <!-- /.box-header -->
+        @if($errors->any())
+        <div class="alert alert-warning alert-dismissble">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <ul>
+                @foreach ($errors->all() as $error)
+            <li>{{$error}}</li>
+                    
+                @endforeach
+            </ul>
+
+        </div>
+        @endif
         <!-- form start -->
         <form method="post" action="{{ route('rekening.store')}}" enctype="multipart/form-data" autocomplete="off">
             <div class="box-body">
