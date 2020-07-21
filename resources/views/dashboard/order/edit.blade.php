@@ -13,7 +13,7 @@
         </ul>
     </div>
     @endif
-    <form action="{{route('order.update',$order->id)}}" method="post">
+    <form action="{{route('order.update',$order->id)}}" method="post" enctype="multipart/form-data">
         {{ csrf_field() }}
         {{ method_field('PUT') }}
         <div class="col-md-7">
