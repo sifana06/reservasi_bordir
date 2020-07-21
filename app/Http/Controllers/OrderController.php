@@ -401,8 +401,8 @@ class OrderController extends Controller
     public function updateOrder(Request $request, $id)
     {
         // //cek foto
-        if($request->bukti_transaksi != NULL){
-            $cover = $request->file('bukti_transaksi');
+        if($request->bukti_pembayaran != NULL){
+            $cover = $request->file('bukti_pembayaran');
             $extension = $cover->getClientOriginalExtension();
             Storage::disk('public')->put($cover->getFilename().'.'.$extension,  File::get($cover));
             
