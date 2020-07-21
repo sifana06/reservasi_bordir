@@ -29,17 +29,21 @@ class RekeningController extends Controller
          * */
 
         $messages = [
-            'required' => ':attribute tidak boleh kosong.'
+            'required' => ':atributnya gak boleh kosong',
+            'numeric' => 'atribut berupa angka ya',
+            'regex' => ':atribut berupa huruf dong',
         ];
         
         $customAttributes = [
-            'nama' => 'Nama'
+            'nama_bank' => 'Nama Bank',
+            'no_rekening' => 'No. Rekening',
+            'nama_pemilik' => 'Nama Pemilik',
         ];
 
         $valid = $request->validate([
             'nama_bank' => 'required|regex:/^[\pL\s\-]+$/u',
             'no_rekening' => 'required|numeric',
-            'nama_pemilik' => 'required'
+            'nama_pemilik' => 'required|regex:/^[\pL\s\-]+$/u'
         ]);
 
         $pemilik_id = auth()->user()->id;
@@ -68,15 +72,22 @@ class RekeningController extends Controller
     public function update(Request $request, $id)
     {
         $messages = [
+            'required' => ':atributnya gak boleh kosong',
+            'numeric' => 'atribut berupa angka ya',
+            'regex' => ':atribut berupa huruf dong',
             
         ];
         
         $customAttributes = [
-            'nama_bank' => 'Nama',
+            'nama_bank' => 'Nama Bank',
+            'no_rekening' => 'No. Rekening',
+            'nama_pemilik' => 'Nama Pemilik',
         ];
 
         $valid = $request->validate([
-            'nama_bank' => 'required'
+            'nama_bank' => 'required|regex:/^[\pL\s\-]+$/u',
+            'no_rekening' => 'required|numeric',
+            'nama_pemilik' => 'required|regex:/^[\pL\s\-]+$/u',
         ],$messages,$customAttributes);
 
         //Cek Validasi

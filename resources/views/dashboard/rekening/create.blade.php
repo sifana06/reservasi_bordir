@@ -40,7 +40,6 @@
                     
                 @endforeach
             </ul>
-
         </div>
         @endif
         <!-- form start -->

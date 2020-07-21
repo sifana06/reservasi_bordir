@@ -34,7 +34,9 @@ class StoreController extends Controller
          * Baris ini untuk menampilkan pesan saat validasi tidak sesuai
          */
         $messages = [
-            'required' => ':attribute tidak boleh kosong.'
+            'required' => ':attribute tidak boleh kosong.',
+            'regex' => ':atribute berupa huruf',
+            'numeric' => ':atribute berupa angka',
         ];
         
         /**
@@ -45,6 +47,9 @@ class StoreController extends Controller
             'nama' => 'Nama',
             'phone'=> 'Nomor Telepon',
             'alamat' => 'Alamat',
+            'kabupaten' => 'Kabupaten',
+            'kecamatan' => 'Kecamatan',
+            'desa' => 'Desa',
         ];
 
         /**
@@ -53,9 +58,9 @@ class StoreController extends Controller
          * atau liat di dokumentasi validation laravel.com
         */
         $valid = $request->validate([
-            'nama' => 'required',
-            'phone' => 'required',
-            'alamat' => 'required',
+            'nama' => 'required|regex:/^[\pL\s\-]+$/u',
+            'phone' => 'required|numeric|min:11',
+            'alamat' => 'required|regex:/^[\pL\s\-]+$/u',
             'kabupaten' => 'required',
             'kecamatan' => 'required',
             'desa' => 'required'
@@ -98,6 +103,9 @@ class StoreController extends Controller
     {
         //cari data berdasarkan id
         $data['store'] = Store::find($id);
+        $data['kabupaten'] = Kabupaten::select(['id','nama'])->get();
+        $data['kecamatan'] = Kecamatan::select(['id','nama'])->get();
+        $data['desa'] = Desa::select(['id','nama'])->get();
 
         return view('dashboard.toko.edit', $data);
     }
@@ -106,7 +114,9 @@ class StoreController extends Controller
     {
         //VALIDASI UPDATE DATA DI SAMAKAN SEPERTI CREATE DATA 
         $messages = [
-            'required' => ':attribute tidak boleh kosong.'
+            'required' => ':attribute tidak boleh kosong.',
+            'regex' => ':atribute berupa huruf',
+            'numeric' => ':atribute berupa angka',
         ];
         
         /**
@@ -117,17 +127,22 @@ class StoreController extends Controller
             'nama' => 'Nama',
             'phone'=> 'Nomor Telepon',
             'alamat' => 'Alamat',
+            'kabupaten' => 'Kabupaten',
+            'kecamatan' => 'Kecamatan',
+            'desa' => 'Desa',
         ];
 
         /**
-         * rule validasi (contoh: required->harus di isi, nanti kamu lanjutin kolom yg belum ada validasinya)
-         * contohnya lainnya lihat validasi usercontroller
-         * atau liat di dokumentasi validation laravel.com
+         * rule validasi (contoh: required->harus di isi)
+         * liat di dokumentasi validation laravel.com
         */
         $valid = $request->validate([
-            'nama' => 'required',
-            'phone' => 'required',
-            'alamat' => 'required'
+            'nama' => 'required|regex:/^[\pL\s\-]+$/u',
+            'phone' => 'required|numeric|min:11',
+            'alamat' => 'required|regex:/^[\pL\s\-]+$/u',
+            'kabupaten' => 'required',
+            'kecamatan' => 'required',
+            'desa' => 'required',
         ],$messages,$customAttributes);
 
         //Cek apakah validasi di atas benar

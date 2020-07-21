@@ -63,6 +63,10 @@
                         <label>Name</label>
                         <input type="text" class="form-control "placeholder="Name" name="name" value={{Auth::user()->name}}>
                     </div>
+            <!--     <div class="form-group">
+                        <label>Foto</label>
+                        <input type="text" class="form-control "placeholder="Foto" name="foto" value={{Auth::user()->foto}}>
+                    </div>  -->
                     <div class="form-group">
                         <label>Email</label>
                         <input type="text" class="form-control "placeholder="Password" name="email" value={{Auth::user()->email}} readonly>

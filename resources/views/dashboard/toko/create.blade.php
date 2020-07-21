@@ -27,6 +27,17 @@
             <div class="box-header with-border" style="margin-left:0px;">
                 <h4 style="margin-top:0px; margin-bottom:0px;"><a href="{{route('toko.index')}}"><span class="fa fa-arrow-left"></span></a> Tambah Toko</h4>
             </div>
+            @if($errors->any())
+        <div class="alert alert-warning alert-dismissble">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <ul>
+                @foreach ($errors->all() as $error)
+            <li>{{$error}}</li>
+                    
+                @endforeach
+            </ul>
+        </div>
+        @endif
             <form method="post" action="{{route('toko.store')}}" enctype="multipart/form-data">
             @csrf
                 <div class="box-body">
