@@ -38,7 +38,7 @@
                         </div>
                         <div class="form-group" style="margin-top:0px;margin-bottom:0px;">
                             <label for="" style="margin-top:0px;margin-bottom:0px;">Keterangan</label>
-                            <textarea class="form-control" name="keterangan" rows="3"></textarea>
+                            <textarea class="form-control" name="keterangan" rows="3">{{old('keterangan')}}</textarea>
                         </div>
                     </div>
             </div>
@@ -51,11 +51,11 @@
                             <div class="col-md-6">
                                 <div class="form-group" style="margin-top:5px;margin-bottom:0px;">
                                     <label for="" style="margin-top:0px;margin-bottom:0px;">Nama Customer</label>
-                                    <input type="text" class="form-control" name="nama_produk" style="margin-top:0px;margin-bottom:0px;">
+                                    <input type="text" class="form-control" name="nama_pelanggan" style="margin-top:0px;margin-bottom:0px;" value="{{old('nama_pelanggan')}}">
                                 </div>
                                 <div class="form-group" style="margin-top:0px;margin-bottom:0px;">
                                     <label for="" style="margin-top:0px;margin-bottom:0px;">Telepon</label>
-                                    <input type="text" class="form-control" name="harga" style="margin-top:0px;margin-bottom:0px;">
+                                    <input type="text" class="form-control" name="telepon" style="margin-top:0px;margin-bottom:0px;" value="{{old('telepon')}}">
                                 </div>
                                 <div class="form-group" style="margin-top:5px;margin-bottom:0px;">
                                     <label for="" style="margin-top:0px;margin-bottom:0px;">Kecamatan</label>
@@ -67,7 +67,7 @@
                             <div class="col-md-6">
                                 <div class="form-group" style="margin-top:5px;margin-bottom:0px;">
                                     <label for="" style="margin-top:0px;margin-bottom:0px;">Email</label>
-                                    <input type="text" class="form-control" name="nama_produk" style="margin-top:0px;margin-bottom:0px;">
+                                    <input type="text" class="form-control" name="email" style="margin-top:0px;margin-bottom:0px;" value="{{old('email')}}">
                                 </div>
                                 <div class="form-group" style="margin-top:5px;margin-bottom:0px;">
                                     <label for="" style="margin-top:0px;margin-bottom:0px;">Kabupaten/Kota</label>
@@ -88,7 +88,7 @@
                         </div>
                         <div class="form-group" style="margin-top:0px;margin-bottom:0px;">
                             <label for="" style="margin-top:0px;margin-bottom:0px;">Alamat</label>
-                            <textarea name="alamat" rows="3" class="form-control" placeholder="Jalan Kebenaran"></textarea>
+                            <textarea name="alamat" rows="3" class="form-control" placeholder="Jalan Kebenaran">{{old('alamat')}}</textarea>
                         </div>
                     </div>
             </div>
@@ -106,11 +106,11 @@
                         </div>
                         <div class="form-group" style="margin-top:0px;margin-bottom:0px;">
                             <label for="" style="margin-top:0px;margin-bottom:0px;">Deadline</label>
-                            <input type="text" class="form-control datepicker" name="deadline" style="margin-top:0px;margin-bottom:0px;">
+                            <input type="text" class="form-control datepicker" name="deadline" style="margin-top:0px;margin-bottom:0px;" value="{{old('deadline')}}">
                         </div>
                         <div class="form-group" style="margin-top:0px;margin-bottom:0px;">
                             <label for="" style="margin-top:0px;margin-bottom:0px;">Catatan</label>
-                            <textarea class="form-control" name="catatan" rows="3"></textarea>
+                            <textarea class="form-control" name="catatan" rows="3">{{old('catatan')}}</textarea>
                         </div>
                     </div>
                 </div>
@@ -120,8 +120,7 @@
                     </div>
                     <div class="box-body">
                         <div class="form-group" style="margin-top:5px;margin-bottom:0px;">
-                            <label for="" style="margin-top:0px;margin-bottom:0px;">Tipe Pembayaran</label>
-                            <select name="tipe_pembayaran" class="form-control">
+                            <select name="store_id" class="form-control">
                                 <option value="">Pilih Toko</option>
                                 @foreach($ambilStore as $store)
                                 <option value="{{$store->id}}">{{$store->nama}}</option>

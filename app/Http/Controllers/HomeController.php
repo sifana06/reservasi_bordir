@@ -40,4 +40,28 @@ class HomeController extends Controller
         $data['toko'] = Store::paginate(12);
         return view('pelanggan.toko.all',$data);
     }
+
+    public function filterProduk(Request $request)
+    {
+        $data['produk'] = Product::where('jenis_bordir', $request->r3)->paginate(12);
+        $data['kecamatan'] = Kecamatan::all();
+        $data['desa'] = Desa::all();
+        return view('pelanggan.home',$data);
+    }
+    
+    public function filterStore(Request $request)
+    {
+        if($request->filter_kecamatan != null && $request->filter_desa != null){
+            $data['toko'] = Store::where('kecamatan', $request->filter_kecamatan)->where('desa',$request->filter_desa)->paginate(12);
+        }elseif($request->filter_kecamatan != null && $request->filter_desa == null){
+            $data['toko'] = Store::where('kecamatan', $request->filter_kecamatan)->where('desa',$request->filter_desa)->paginate(12);
+        }elseif($request->filter_kecamatan == null && $request->filter_desa != null){
+            $data['toko'] = Store::where('kecamatan', $request->filter_desa)->where('desa',$request->filter_desa)->paginate(12);
+        }else{
+            $data['toko'] = Store::paginate(12);
+        }
+        $data['kecamatan'] = Kecamatan::all();
+        $data['desa'] = Desa::all();
+        return view('pelanggan.toko.all',$data);
+    }
 }

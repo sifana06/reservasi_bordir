@@ -8,19 +8,21 @@
                 <h3 class="box-title" style="margin-top:0px;margin-bottom:0px;">Filter</h3>
             </div>
             <div class="box-body">
-                <h5 class="box-title" style="margin-top:0px;">Jenis Bordir</h5>
-                <div class="form-group"  style="margin-top:0px;">
-                    <label>
-                    <input type="radio" name="r3" class="flat-red">
-                    <small>Bordir Logo</small>
-                    </label>
-                    <br>
-                    <label>
-                    <input type="radio" name="r3" class="flat-red">
-                    <small>Bordir Kaos</small>
-                    </label>
-                </div>
-                <hr style="margin-top:5px;margin-bottom:5px;">
+                <form action="{{route('filter.produk')}}" method="post">
+                    @csrf
+                    <h5 class="box-title" style="margin-top:0px;">Jenis Bordir</h5>
+                    <div class="form-group"  style="margin-top:0px;">
+                        <label>
+                        <input type="radio" name="r3" class="flat-red" value="logo">
+                        <small>Bordir Logo</small>
+                        </label>
+                        <br>
+                        <label>
+                        <input type="radio" name="r3" class="flat-red" value="kaos">
+                        <small>Bordir Kaos</small>
+                        </label>
+                    </div>
+                <!-- <hr style="margin-top:5px;margin-bottom:5px;">
                 <h5 class="box-title" style="margin-top:0px;">Kecamatan</h5>
                 <div class="form-group" style="margin-top:0px;">
                     <select class="form-control select2" style="width: 100%;">
@@ -39,11 +41,12 @@
                         <option value="{{$ds->id}}">{{$ds->nama}}</option>
                         @endforeach
                     </select>
-                </div>
+                </div> -->
             </div>
             <div class="box-footer">
               <button type="submit" class="btn btn-blue btn-sm bg-blue" style="width:100%;">Cari</button>
             </div>
+            </form>
         </div>
     </div>
 

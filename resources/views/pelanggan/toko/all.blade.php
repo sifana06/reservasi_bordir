@@ -9,6 +9,8 @@
                 <h3 class="box-title" style="margin-top:0px;margin-bottom:0px;">Filter</h3>
             </div>
             <div class="box-body">
+            <form action="{{route('filter.store')}}" method="post">
+            @csrf
                 <h5 class="box-title" style="margin-top:0px;">Kecamatan</h5>
                 <div class="form-group" style="margin-top:0px;">
                     <select name="filter_kecamatan" class="form-control select2" style="width: 100%;">
@@ -32,6 +34,7 @@
             <div class="box-footer">
               <button type="submit" class="btn btn-blue btn-sm bg-blue" style="width:100%;">Cari</button>
             </div>
+            </form>
         </div>
     </div>
 

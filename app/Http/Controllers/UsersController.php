@@ -60,12 +60,28 @@ class UsersController extends Controller
 
     public function edit($id)
     {
-        //
+        $data['user'] = User::find($id);
+        return view('dashboard.users.edit',$data);
     }
 
     public function update(Request $request, $id)
     {
-        //
+        $valid = $request->validate([
+            'name' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/',
+            'email' => 'required|unique:users,email,'.$id,
+            'phone' => 'required|numeric|digits_between:11,13',
+            'role' => 'required'
+        ]);
+        if($valid == true){
+            $user = User::find($id);
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->phone = $request->phone;
+            $user->role = $request->role;
+            $user->save();
+        }
+
+        return redirect()->route('user.index')->with('success','User deleted successfully.');
     }
 
     public function destroy($id)

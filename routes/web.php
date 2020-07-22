@@ -89,7 +89,9 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function(){
     
     Route::group(['prefix' => 'p', 'middleware' => 'role:isPelanggan'], function(){
         Route::get('home', 'HomeController@index')->name('home');
-        
+        Route::post('filter-produk', 'HomeController@filterProduk')->name('filter.produk');
+        Route::post('filter-toko', 'HomeController@filterStore')->name('filter.store');
+         
         Route::group(['prefix' => 'order'], function(){
             Route::get('/', 'OrderController@order')->name('po.index');
             Route::get('create/{id}', 'OrderController@createOrder')->name('po.create');
