@@ -81,7 +81,7 @@ class DashboardController extends Controller
 
         $valid = $request->validate([
             'name' => 'required|regex:/^[\pL\s\-]+$/u',
-            'phone' => 'required',
+            'phone' => 'required|numeric|max:10|min:9',
         ],$messages,$customAttributes);
 
         if($valid == true){

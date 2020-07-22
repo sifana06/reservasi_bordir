@@ -102,8 +102,13 @@ class RekeningController extends Controller
 
     public function getData()
     {
-        $pemilik_id = auth()->user()->id;
-        $query = Rekening::select(['id', 'nama_bank', 'no_rekening', 'nama_pemilik', 'created_at'])->where('pemilik_id', $pemilik_id);
+        if(auth()->user()->role == 'admin'){
+            $query = Rekening::select(['id', 'nama_bank', 'no_rekening', 'nama_pemilik', 'created_at']);
+        }
+        if(auth()->user()->role == 'pemilik'){
+            $pemilik_id = auth()->user()->id;
+            $query = Rekening::select(['id', 'nama_bank', 'no_rekening', 'nama_pemilik', 'created_at'])->where('pemilik_id', $pemilik_id);
+        }
 
         return DataTables::of($query)
             ->addColumn('nama', function($rekening){

@@ -96,17 +96,17 @@
             <i class="fa fa-users"></i> <span>Data Users</span>
           </a>
         </li>
-        <li class="{{ Route::currentRouteName() == 'rekening.index' || Route::currentRouteName() == 'rekening.edit' ||Route::currentRouteName() == 'rekening.create'  ? 'active' : '' }}">
+        <!-- <li class="{{ Route::currentRouteName() == 'rekening.index' || Route::currentRouteName() == 'rekening.edit' ||Route::currentRouteName() == 'rekening.create'  ? 'active' : '' }}">
           <a href="{{route('rekening.index')}}">
             <i class="fa fa-credit-card"></i> <span>Data Rekening</span>
           </a>
         </li>
-        <!-- <li class="{{ Route::currentRouteName() == 'transaksi.index' || Route::currentRouteName() == 'transaksi.edit' ||Route::currentRouteName() == 'transaksi.create'  ? 'active' : '' }}">
+        <li class="{{ Route::currentRouteName() == 'transaksi.index' || Route::currentRouteName() == 'transaksi.edit' ||Route::currentRouteName() == 'transaksi.create'  ? 'active' : '' }}">
           <a href="{{route('transaksi.index')}}">
             <i class="fa fa-refresh"></i> <span>Data Transaksi</span>
           </a>
-        </li>
-        <li class="{{ Route::currentRouteName() == 'setting' || Route::currentRouteName() == 'setting.edit' ||Route::currentRouteName() == 'setting.create'  ? 'active' : '' }}">
+        </li> -->
+        <!-- <li class="{{ Route::currentRouteName() == 'setting' || Route::currentRouteName() == 'setting.edit' ||Route::currentRouteName() == 'setting.create'  ? 'active' : '' }}">
           <a href="{{route('setting')}}">
             <i class="fa fa-cogs"></i> <span>Setting</span>
           </a>
