@@ -33,27 +33,37 @@ class ProductController extends Controller
         // $messages = [
         //     'required' => ':attribute tidak boleh kosong.'
         // ];
-        
+
+        $messages = [
+            'required' => ':atribute tidak boleh kosong',
+            'numeric' => ':atribute harus berupa angka',
+            'mimes' => ':atribut diisi yang benar jpg,png,jpeg,gif,svg',
+            'regex' => ':atribute harus berupa huruf',
+
+        ];
         // /**
         //  * CustomAttributes -> untuk mengubah nama attribute
         //  * misal nama field di tabel database phone terus mau di ubah jadi nomor hp, dll.
-        //  */
-        // $customAttributes = [
-        //     'nama' => 'Nama',
-        //     'foto'=> 'Foto',
-        //     'jenis_bordir' => 'Jenis Bordir',
-        //     'deskripsi' => 'Deskripsi',
-        // ];
+        $customAttributes = [
 
+            'foto' => 'Foto',
+            'nama' => 'Nama',
+            'jenis_bordir' => 'Jenis Bordir',
+            'harga' => 'Harga',
+            'deskripsi' => 'Keterangan Produk',
+        ];
         /**
-         * rule validasi (contoh: required->harus di isi, nanti kamu lanjutin kolom yg belum ada validasinya)
-         * contohnya lainnya lihat validasi usercontroller
-         * atau liat di dokumentasi validation laravel.com
+         * rule validasi (contoh: required->harus di isi)
+         * liat di dokumentasi validation laravel.com
         */
         $valid = $request->validate([
-            'nama' => 'required',
+            'foto' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
+            'nama' => 'required|regex:/^[\pL\s\-]+$/',
             'jenis_bordir' => 'required',
-            'deskripsi' => 'required',
+            'harga' => 'required|numeric',
+            'deskripsi' => 'required|regex:/^[\pL\s\-]+$/',
+            
+            
         ]);
 
         //cek foto
@@ -103,11 +113,32 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
+        $messages = [
+            'required' => ':atribute tidak boleh kosong',
+            'numeric' => ':atribute harus berupa angka',
+            'mimes' => ':atribut diisi yang benar jpg,png,jpeg,gif,svg',
+            'image' => ':atribute harus gambar',
+            'regex' => ':atribute harus berupa huruf',
+
+        ];
+        // /**
+        //  * CustomAttributes -> untuk mengubah nama attribute
+        //  * misal nama field di tabel database phone terus mau di ubah jadi nomor hp, dll.
+        $customAttributes = [
+
+            'foto' => 'Foto',
+            'nama' => 'Nama',
+            'jenis_bordir' => 'Jenis Bordir',
+            'harga' => 'Harga',
+            'deskripsi' => 'Keterangan Produk',
+        ];
         $valid = $request->validate([
-            'nama' => 'required',
-            'harga' => 'required',
+            'nama' => 'required|regex:/^[\pL\s\-]+$/u',
+            'harga' => 'required|numeric',
+            'foto' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
             'jenis_bordir' => 'required',
-            'deskripsi' => 'required',
+            'deskripsi' => 'required|regex:/^[\pL\s\-]+$/u',
+
         ]);
 
     

@@ -1,5 +1,6 @@
 <?php
 
+//panggil model
 use App\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -13,10 +14,11 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        // panggil nama function
         $this->user();
     }
 
-    public function user()
+    public function user() /**ini nama function.e, menyesuaikan aja */
     {
         $payload = [
             'name' => 'Dandy',
@@ -34,6 +36,16 @@ class UserSeeder extends Seeder
             'password' => bcrypt('secret'),
             'phone' => '087567786734',
             'role' => 'pemilik',
+        ];
+
+        User::firstOrCreate($payload);
+
+        $payload = [
+            'name' => 'Anda',
+            'email' => 'azidantx98@gmail.com',
+            'password' => bcrypt('rahasia'),
+            'phone' => '0834573465234',
+            'role' => 'pemilik'
         ];
 
         User::firstOrCreate($payload);

@@ -30,6 +30,17 @@
             <h4 style="margin-top: 0px; margin-bottom: 0px;"><a href="{{route('rekening.index')}}"><span class="fa fa-arrow-left"></span></a> Edit Nomor Rekaning</h4>
             </div>
         </div>
+        @if($errors->any())
+        <div class="alert alert-warning alert-dismissble">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <ul>
+                @foreach ($errors->all() as $error)
+            <li>{{$error}}</li>
+                    
+                @endforeach
+            </ul>
+        </div>
+        @endif
         <!-- /.box-header -->
         <!-- form start -->
         <form method="post" action="{{ route('rekening.update',$rekening->id)}}" enctype="multipart/form-data" autocomplete="off">
@@ -48,6 +59,7 @@
                 <label>Nama Pemilik Rekening</label>
                 <input type="text" class="form-control" placeholder="Ahmad Rojali" name="nama_pemilik" value="{{$rekening->nama_pemilik}}">
             </div>
+            
             </div>
             <!-- /.box-body -->
             <div class="box-footer">

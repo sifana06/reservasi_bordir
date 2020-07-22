@@ -71,6 +71,7 @@ class DashboardController extends Controller
         $messages = [
             'required' => ':attribute tidak boleh kosong.',
             'regex'    => ':attribute harus berupa karakter alphabet.',
+            'numeric' => ':atribut harus berupa karakter huruf.',
         ];
 
         $customAttributes = [
@@ -81,7 +82,11 @@ class DashboardController extends Controller
 
         $valid = $request->validate([
             'name' => 'required|regex:/^[\pL\s\-]+$/u',
+<<<<<<< HEAD
             'phone' => 'required|numeric|max:10|min:9',
+=======
+            'phone' => 'required|numeric|min:11',
+>>>>>>> 0a736101792a3f09c69104ecf6bfeadef1b531e1
         ],$messages,$customAttributes);
 
         if($valid == true){
@@ -89,6 +94,7 @@ class DashboardController extends Controller
             $user->name = $request->name;
             $user->phone = $request->phone;
             $user->no_ijin = $request->no_ijin;
+            $user->foto = $request->foto;
     
             if (isset($request->new_password) && $request->new_password == $request->confirm_password) {
                 $user->password = bcrypt($request->new_password);
