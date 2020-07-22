@@ -129,9 +129,20 @@
                         <h4 style="margin-top:0px; margin-bottom:0px;">Detail Pembayaran</h4>
                     </div>
                     <div class="box-body">
-                        <div class="form-group" style="margin-top:0px;margin-bottom:0px;">
-                            <label for="">Total Pembayaran</label>
-                            <input type="text" name="total_pembayaran" class="form-control" readonly="true" value="{{$order->total}}">
+                        <div class="form-group" style="margin-top:0px;margin-bottom:0px;" id="ongkirFieldDiv">
+                            <label for="ongkirField">Ongkos Kirim</label>
+                            <input type="text" name="ongkir" id="ongkirField" class="form-control" readonly="true" value="20000">
+                        </div>
+                        <div class="form-group" style="margin-top:0px;margin-bottom:0px;" id="totalFieldDiv">
+                            <label for="totalField">Total Pembayaran</label>
+                            <input type="text" name="total_pembayaran_a" id="totalField" class="form-control" readonly="true" value="{{$order->total}}">
+                        </div>
+                        <div class="form-group" style="margin-top:0px;margin-bottom:0px;" id="tfFieldDiv">
+                            <label for="tfField">Total Pembayaran</label>
+                            @php
+                                $total_pembayaran = $order->total+20000;
+                            @endphp
+                            <input type="text" name="total_pembayaran_b" id="tfField" class="form-control" readonly="true" value="{{$total_pembayaran}}">
                         </div>
                         <input type="text" name="id_pembayaran" readonly="true" value="" hidden="true">
                         <div class="form-group" style="margin-top:0px;margin-bottom:0px;">
@@ -341,6 +352,15 @@ $("#seeAnotherField").change(function() {
     $('#statusFieldDiv').show();
     $('#statusField').attr('required', '');
     $('#statusField').attr('data-error', 'This field is required.');
+    $('#ongkirFieldDiv').show();
+    $('#ongkirField').attr('required', '');
+    $('#ongkirField').attr('data-error', 'This field is required.');
+    $('#tfFieldDiv').show();
+    $('#tfField').attr('required', '');
+    $('#tfField').attr('data-error', 'This field is required.');
+    $('#totalFieldDiv').hide();
+    $('#totalField').attr('required', '');
+    $('#totalField').attr('data-error', 'This field is required.');
   }else {
     $('#rekeningFieldDiv').hide();
     $('#rekeningField').removeAttr('required');
@@ -354,6 +374,15 @@ $("#seeAnotherField").change(function() {
     $('#statusFieldDiv').hide();
     $('#statusField').removeAttr('required');
     $('#statusField').removeAttr('data-error');
+    $('#ongkirFieldDiv').hide();
+    $('#ongkirField').removeAttr('required');
+    $('#ongkirField').removeAttr('data-error');
+    $('#tfFieldDiv').hide();
+    $('#tfField').removeAttr('required');
+    $('#tfField').removeAttr('data-error');
+    $('#totalFieldDiv').show();
+    $('#totalField').removeAttr('required');
+    $('#totalField').removeAttr('data-error');
   }
 });
 $("#seeAnotherField").trigger("change");

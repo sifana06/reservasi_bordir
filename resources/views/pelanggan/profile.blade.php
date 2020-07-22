@@ -9,7 +9,11 @@
                 <div class="box box-widget widget-user">
                     <div class="widget-user-header" style="background-image: url(/assets/material/images/background-2.jpg);"></div>
                     <div class="widget-user-image">
-                        <img class="img-circle" src="/assets/images/user.png" alt="User Avatar">
+                    @if(auth()->user()->foto != null)
+                        <img src="/uploads/{{auth()->user()->foto}}" class="img-circle" alt="User Image">
+                    @else
+                        <img src="/assets/images/user.png" class="img-circle" alt="User Image">
+                    @endif
                     </div>
                 </div>
                 <br>
@@ -18,12 +22,14 @@
                 <h4 style="margin-bottom:0px;"><b>{{ucwords(Auth::user()->name)}}</b></h4>
                 {{Auth::user()->email}}
                 </div>
-                <!-- <form action="">
+                <form method="post" action="{{route('profile.foto')}}" enctype="multipart/form-data">
+                {{csrf_field()}}
+                {{method_field('put')}}
                     <div class="form-group text-center">
-                        <input type="file" class="upload" id="image" name="image"><label class="custom-file-label" for="image">Choose file</label>
+                    <input type="file" class="upload" id="image" name="foto"><label class="custom-file-label" for="image">Choose file</label>
                     </div>
-                    <button type="submit" class="btn btn-success bg-green btn-block">Change</button>
-                </form> -->
+                    <button type="submit" class="btn btn-success bg-red btn-block">Change</button>
+                </form>
             </div>
         </div>
     </div>
@@ -90,3 +96,13 @@
     </div>
 </div>
 @endsection
+
+@push('footer')
+
+<script>
+  $('.upload').on('change', function () {
+    let fileName = $(this).val().split('\\').pop();
+    $(this).next('.custom-file-label').addClass("selected").html(fileName);
+  })
+</script>
+@endpush

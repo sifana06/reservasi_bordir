@@ -61,15 +61,22 @@
               <!-- Menu Toggle Button -->
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <!-- The user image in the navbar-->
-                <img src="/assets/material/images/user.png" class="user-image" alt="User Image">
+                @if(auth()->user()->foto != null)
+                  <img src="/uploads/{{auth()->user()->foto}}" class="user-image" alt="User Image">
+                @else
+                  <img src="/assets/images/user.png" class="user-image" alt="User Image">
+                @endif
                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
                 <span class="hidden-xs">{{ucwords(Auth::user()->name)}}</span>
               </a>
               <ul class="dropdown-menu">
                 <!-- The user image in the menu -->
                 <li class="user-header">
-                  <img src="/assets/material/images/user.png" class="img-circle" alt="User Image">
-
+                @if(auth()->user()->foto != null)
+                  <img src="/uploads/{{auth()->user()->foto}}" class="img-circle" alt="User Image">
+                @else
+                  <img src="/assets/images/user.png" class="img-circle" alt="User Image">
+                @endif
                   <p>
                     {{ucwords(Auth::user()->name)}} - {{Auth::user()->role}}
                     <small>Join since {{date('j,F-Y')}}</small>

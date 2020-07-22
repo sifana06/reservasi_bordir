@@ -119,7 +119,7 @@ class OrderController extends Controller
     public function getData()
     {
         $pemilik_id = auth()->user()->id;
-        $query = Order::with(['product','user_customer','store_product'])->select(['id', 'user_id','store_id','product_id','order_number','foto','jenis_bordir','keterangan','nama_pelanggan','email','telepon','kabupaten','kecamatan','desa','alamat','catatan','deadline','jumlah','harga','total','status_order','status_pembayaran','status_pengiriman','tipe_pembayaran','order_at','received_at', 'created_at'])->where('pemilik_id', $pemilik_id);
+        $query = Order::with(['product','user_customer','store_product'])->select(['id', 'user_id','store_id','product_id','order_number','foto','jenis_bordir','keterangan','nama_pelanggan','email','telepon','kabupaten','kecamatan','desa','alamat','catatan','deadline','jumlah','harga','total','status_order','status_pembayaran','status_pengiriman','tipe_pembayaran','order_at','received_at', 'created_at'])->where('pemilik_id', $pemilik_id)->orderBy('created_at', 'DESC');
 
         return DataTables::of($query)
             ->addColumn('order_number', function($order){
@@ -257,14 +257,14 @@ class OrderController extends Controller
             'product_id' => 'required',
             // 'foto' => 'required',
             'jenis_bordir' => 'required',
-            'nama_pelanggan' => 'required',
-            'telepon' => 'required',
+            'nama_pelanggan' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/',
+            'telepon' => 'required|numeric|digits_between:11,13',
             'kabupaten' => 'required',
             'kecamatan' => 'required',
             'desa' => 'required',
             'alamat' => 'required',
             'catatan' => 'required',
-            'deadline' => 'required',
+            'deadline' => 'required|date',
             'jumlah' => 'required',
             'harga' => 'required',
         ],$messages,$customAttributes);
@@ -338,8 +338,8 @@ class OrderController extends Controller
             'product_id' => 'required',
             // 'foto' => 'required',
             'jenis_bordir' => 'required',
-            'nama_pelanggan' => 'required',
-            'telepon' => 'required',
+            'nama_pelanggan' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/',
+            'telepon' => 'required|numeric|digits_between:11,13',
             'kabupaten' => 'required',
             'kecamatan' => 'required',
             'desa' => 'required',
@@ -357,7 +357,11 @@ class OrderController extends Controller
     
         //Cek apakah validasi di atas benar
         if($valid == true){
-            $total = $request->jumlah*$request->harga;
+            if($request->tipe_pembayaran == 'transfer'){
+                $total = $request->jumlah*$request->harga+$request->ongkir;
+            }else{
+                $total = $request->jumlah*$request->harga;
+            }
             $data_store = Order::create([
                 'user_id' => $user_id,
                 'store_id' => $request->get('store_id'),
@@ -418,6 +422,7 @@ class OrderController extends Controller
             }else{
                 $order->status_pembayaran = "belum bayar";
             }
+            $order->total = $request->total_pembayaran_b;
             $order->tanggal_pembayaran = Carbon::parse($request->tanggal_pembayaran)->format('y/m/d');
             $order->bukti_transaksi = $cover->getFilename().'.'.$extension;
             $order->save();
@@ -449,6 +454,7 @@ class OrderController extends Controller
             }else{
                 $order->status_pembayaran = "belum bayar";
             }
+            $order->total = $request->total_pembayaran_a;
             $order->tanggal_pembayaran = Carbon::parse($request->tanggal_pembayaran)->format('y/m/d');
             $order->save();
 
@@ -473,7 +479,7 @@ class OrderController extends Controller
     public function getDataPelanggan()
     {
         $user_id = auth()->user()->id;
-        $query = Order::with(['product','user_customer','store_product'])->select(['id', 'user_id','store_id','product_id','order_number','foto','jenis_bordir','keterangan','nama_pelanggan','email','telepon','kabupaten','kecamatan','desa','alamat','catatan','deadline','jumlah','harga','total','status_order','status_pembayaran','tipe_pembayaran','status_pengiriman','order_at','received_at', 'created_at'])->where('user_id', $user_id);
+        $query = Order::with(['product','user_customer','store_product'])->select(['id', 'user_id','store_id','product_id','order_number','foto','jenis_bordir','keterangan','nama_pelanggan','email','telepon','kabupaten','kecamatan','desa','alamat','catatan','deadline','jumlah','harga','total','status_order','status_pembayaran','tipe_pembayaran','status_pengiriman','order_at','received_at', 'created_at'])->where('user_id', $user_id)->orderBy('created_at','DESC');
 
         return DataTables::of($query)
             ->addColumn('order', function($order){

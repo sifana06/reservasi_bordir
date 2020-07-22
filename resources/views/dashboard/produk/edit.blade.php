@@ -57,10 +57,6 @@
                         <input type="text" class="form-control" name="nama" placeholder="Bordir tepi logo" value="{{$produk->nama}}">
                     </div>
                     <div class="form-group" style="margin-top:0px;">
-                        <label>Harga</label>
-                        <input type="text" class="form-control" name="harga" placeholder="29500" value="{{$produk->harga}}">
-                    </div>
-                    <div class="form-group" style="margin-top:0px;">
                         <label>Toko</label>
                         <select name="store_id" class="form-control">
                             <option value="">-- Pilih Toko --</option>

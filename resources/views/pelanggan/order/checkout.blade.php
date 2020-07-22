@@ -61,11 +61,11 @@
                             <div class="col-md-6">
                                 <div class="form-group" style="margin-top:5px;margin-bottom:0px;">
                                     <label for="">Nama Customer</label>
-                                    <input type="text" class="form-control" name="nama_pelanggan" placeholder="Sifana">
+                                    <input type="text" class="form-control" name="nama_pelanggan" placeholder="Sifana" value="{{old('nama_pelanggan')}}">
                                 </div>
                                 <div class="form-group">
                                     <label for="">Telepon</label>
-                                    <input type="text" class="form-control" name="telepon" placeholder="081234565432">
+                                    <input type="text" class="form-control" name="telepon" placeholder="081234565432" value="{{old('telepon')}}">
                                 </div>
                                 <div class="form-group">
                                     <label for="">Kecamatan</label>
@@ -77,7 +77,7 @@
                             <div class="col-md-6">
                                 <div class="form-group" style="margin-top:5px;margin-bottom:0px;">
                                     <label for="">Email <small>(optional)</small></label>
-                                    <input type="text" class="form-control" name="nama_produk" >
+                                    <input type="email" class="form-control" name="email" >
                                 </div>
                                 <div class="form-group">
                                     <label for="">Kabupaten/Kota</label>
@@ -98,7 +98,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">Alamat</label>
-                            <textarea rows="3" class="form-control" name="alamat" placeholder="Jalan Kebenaran"></textarea>
+                            <textarea rows="3" class="form-control" name="alamat" placeholder="Jalan Kebenaran">{{old('nama_pelanggan')}}</textarea>
                         </div>
                     </div>
             </div>
@@ -116,11 +116,11 @@
                         </div>
                         <div class="form-group">
                             <label for="">Deadline</label>
-                            <input type="text" class="form-control datepicker" name="deadline">
+                            <input type="text" class="form-control datepicker" name="deadline"  value="{{old('deadline')}}">
                         </div>
                         <div class="form-group">
                             <label for="">Catatan</label>
-                            <textarea class="form-control" name="catatan" rows="3"></textarea>
+                            <textarea class="form-control" name="catatan" rows="3">{{old('catatan')}}</textarea>
                         </div>
                     </div>
                 </div>

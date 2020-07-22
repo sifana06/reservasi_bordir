@@ -58,12 +58,10 @@ class ProductController extends Controller
         */
         $valid = $request->validate([
             'foto' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
-            'nama' => 'required|regex:/^[\pL\s\-]+$/',
+            'nama' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/',
             'jenis_bordir' => 'required',
-            'harga' => 'required|numeric',
-            'deskripsi' => 'required|regex:/^[\pL\s\-]+$/',
-            
-            
+            'harga' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+            'deskripsi' => 'required',
         ]);
 
         //cek foto
@@ -132,14 +130,22 @@ class ProductController extends Controller
             'harga' => 'Harga',
             'deskripsi' => 'Keterangan Produk',
         ];
-        $valid = $request->validate([
-            'nama' => 'required|regex:/^[\pL\s\-]+$/u',
-            'harga' => 'required|numeric',
-            'foto' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
-            'jenis_bordir' => 'required',
-            'deskripsi' => 'required|regex:/^[\pL\s\-]+$/u',
-
-        ]);
+        if($request->foto != null){
+            $valid = $request->validate([
+                'foto' => 'required|mimes:jpg,png,jpeg,gif,svg',
+                'nama' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/',
+                'jenis_bordir' => 'required',
+                'harga' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+                'deskripsi' => 'required',
+            ]);
+        }else{
+            $valid = $request->validate([
+                'nama' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/',
+                'jenis_bordir' => 'required',
+                'harga' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+                'deskripsi' => 'required',
+            ]);
+        }
 
     
         //Cek apakah validasi di atas benar
@@ -156,12 +162,6 @@ class ProductController extends Controller
                 //cek foto
                 $cover = $request->file('foto');
                 $extension = $cover->getClientOriginalExtension();
-
-                $img = Image::make($image->getRealPath());
-                $img->resize(120, 120, function ($constraint) {
-                    $constraint->aspectRatio();                 
-                });
-
                 Storage::disk('public')->put($cover->getFilename().'.'.$extension,  File::get($cover));
                 $data_produk = Product::find($id);
                 $data_produk->store_id = $request->store_id;

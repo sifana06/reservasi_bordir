@@ -28,21 +28,15 @@ class StoreController extends Controller
 
     public function store(Request $request)
     {
-        //ambil id user yg sedang login
         $pemilik_id = auth()->user()->id;
-        /**
-         * Baris ini untuk menampilkan pesan saat validasi tidak sesuai
-         */
+
         $messages = [
             'required' => ':attribute tidak boleh kosong.',
-            'regex' => ':atribute berupa huruf',
-            'numeric' => ':atribute berupa angka',
+            'regex' => ':attribute berupa huruf',
+            'numeric' => ':attribute berupa angka',
+            'alpha' => ':attribute harus berupa karakter alphabet'
         ];
         
-        /**
-         * CustomAttributes -> untuk mengubah nama attribute
-         * misal nama field di tabel database phone terus mau di ubah jadi nomor hp, dll.
-         */
         $customAttributes = [
             'nama' => 'Nama',
             'phone'=> 'Nomor Telepon',
@@ -52,15 +46,10 @@ class StoreController extends Controller
             'desa' => 'Desa',
         ];
 
-        /**
-         * rule validasi (contoh: required->harus di isi, nanti kamu lanjutin kolom yg belum ada validasinya)
-         * contohnya lainnya lihat validasi usercontroller
-         * atau liat di dokumentasi validation laravel.com
-        */
         $valid = $request->validate([
-            'nama' => 'required|regex:/^[\pL\s\-]+$/u',
-            'phone' => 'required|numeric|min:11',
-            'alamat' => 'required|regex:/^[\pL\s\-]+$/u',
+            'nama' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/',
+            'phone' => 'required|numeric|digits_between:11,13',
+            'alamat' => 'required',
             'kabupaten' => 'required',
             'kecamatan' => 'required',
             'desa' => 'required'
@@ -115,17 +104,14 @@ class StoreController extends Controller
         //VALIDASI UPDATE DATA DI SAMAKAN SEPERTI CREATE DATA 
         $messages = [
             'required' => ':attribute tidak boleh kosong.',
-            'regex' => ':atribute berupa huruf',
-            'numeric' => ':atribute berupa angka',
+            'regex' => ':attribute berupa huruf',
+            'numeric' => ':attribute berupa angka',
+            'alpha' => ':attribute harus berupa karakter alphabet'
         ];
         
-        /**
-         * CustomAttributes -> untuk mengubah nama attribute
-         * misal nama field di tabel database phone terus mau di ubah jadi nomor hp, dll.
-         */
         $customAttributes = [
             'nama' => 'Nama',
-            'phone'=> 'Nomor Telepon',
+            'phone' => 'Nomor Telepon',
             'alamat' => 'Alamat',
             'kabupaten' => 'Kabupaten',
             'kecamatan' => 'Kecamatan',
@@ -137,9 +123,9 @@ class StoreController extends Controller
          * liat di dokumentasi validation laravel.com
         */
         $valid = $request->validate([
-            'nama' => 'required|regex:/^[\pL\s\-]+$/u',
-            'phone' => 'required|numeric|min:11|max:12',
-            'alamat' => 'required|regex:/^[\pL\s\-]+$/u',
+            'nama' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/',
+            'phone' => 'required|numeric|digits_between:11,13',
+            'alamat' => 'required',
             'kabupaten' => 'required',
             'kecamatan' => 'required',
             'desa' => 'required',

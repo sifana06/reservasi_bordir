@@ -53,7 +53,7 @@
                     </div>
                     <div class="form-group" style="margin-top:0px;">
                         <label>Nama Produk</label>
-                        <input type="text" class="form-control" name="nama" placeholder="Bordir tepi logo">
+                        <input type="text" class="form-control" name="nama" placeholder="Bordir tepi logo" value="{{old('nama')}}">
                     </div>
                     <div class="form-group" style="margin-top:0px;">
                         <label>Toko</label>
@@ -74,11 +74,11 @@
                     </div>
                     <div class="form-group" style="margin-top:0px;">
                         <label>Harga</label>
-                        <input type="text" name="harga" class="form-control">
+                        <input type="text" name="harga" class="form-control" value="{{old('harga')}}">
                     </div>
                     <div class="form-group" style="margin-top:0px;">
                         <label>Deskripsi</label>
-                        <textarea class="form-control" rows="3" name="deskripsi" placeholder="Deskripsi Produk"></textarea>
+                        <textarea class="form-control" rows="3" name="deskripsi" placeholder="Deskripsi Produk">{{old('deskripsi')}}</textarea>
                     </div>
                 </div>
                 <div class="box-footer">

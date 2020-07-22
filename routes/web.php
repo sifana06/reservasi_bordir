@@ -30,6 +30,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function(){
 
     Route::get('profile', 'DashboardController@profile')->name('profile');
     Route::put('profile', 'DashboardController@profileUpdate')->name('profile.update');
+    Route::put('foto-profile', 'DashboardController@updateFotoProfile')->name('profile.foto');
 
     Route::group(['middleware' => 'auth.isAdmin'], function(){
         Route::get('settings', 'SettingController@index')->name('setting');
@@ -61,7 +62,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function(){
         Route::get('toko/create', 'StoreController@create')->name('toko.create');
         Route::post('toko', 'StoreController@store')->name('toko.store');
         Route::get('data-toko', 'StoreController@getData')->name('toko.getdata');
-        Route::get('tokos/edit/{id}', 'StoreController@edit')->name('toko.edit');
+        Route::get('toko/edit/{id}', 'StoreController@edit')->name('toko.edit');
         Route::put('toko/update/{id}', 'StoreController@update')->name('toko.update');
         Route::get('toko/{id}/delete','StoreController@destroy')->name('toko.delete');
         Route::get('toko/hapus/{id}', 'StoreController@delete')->name('toko.hapus');

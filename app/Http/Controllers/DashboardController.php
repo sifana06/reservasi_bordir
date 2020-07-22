@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class DashboardController extends Controller
 {
@@ -71,7 +73,8 @@ class DashboardController extends Controller
         $messages = [
             'required' => ':attribute tidak boleh kosong.',
             'regex'    => ':attribute harus berupa karakter alphabet.',
-            'numeric' => ':atribut harus berupa karakter huruf.',
+            'numeric'  => ':attribute harus berupa karakter angka.',
+            'alpha'    => ':attribute harus berupa karakter alphabet.',
         ];
 
         $customAttributes = [
@@ -81,12 +84,9 @@ class DashboardController extends Controller
         ];
 
         $valid = $request->validate([
-            'name' => 'required|regex:/^[\pL\s\-]+$/u',
-<<<<<<< HEAD
-            'phone' => 'required|numeric|max:10|min:9',
-=======
-            'phone' => 'required|numeric|min:11',
->>>>>>> 0a736101792a3f09c69104ecf6bfeadef1b531e1
+            'name' => 'required|alpha',
+            'phone' => 'required|numeric|digits_between:11,13',
+            'no_ijin' => 'numeric'
         ],$messages,$customAttributes);
 
         if($valid == true){
@@ -99,6 +99,28 @@ class DashboardController extends Controller
             if (isset($request->new_password) && $request->new_password == $request->confirm_password) {
                 $user->password = bcrypt($request->new_password);
             }
+            $user->save();
+
+            return redirect()->route('profile')->with('success', 'Profile updated successfully.');
+        }
+        return redirect()->route('profile')->with('error', 'Profile updated is failed.');
+    }
+
+    public function updateFotoProfile(Request $request)
+    {
+        $valid = $request->validate([
+            'foto' => 'required|mimes:jpg,png,jpeg,gif,svg'
+        ]);
+
+        if($valid == true){
+            //cek foto
+            $cover = $request->file('foto');
+            $extension = $cover->getClientOriginalExtension();
+            Storage::disk('public')->put($cover->getFilename().'.'.$extension,  File::get($cover));
+
+            $user = auth()->user();
+            $user->foto = $cover->getFilename().'.'.$extension;
+    
             $user->save();
 
             return redirect()->route('profile')->with('success', 'Profile updated successfully.');

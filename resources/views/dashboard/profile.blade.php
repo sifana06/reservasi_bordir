@@ -9,7 +9,11 @@
                 <div class="box box-widget widget-user">
                     <div class="widget-user-header" style="background-image: url(/assets/material/images/background-2.jpg);"></div>
                     <div class="widget-user-image">
+                    @if(auth()->user()->foto != null)
+                        <img class="img-circle" src="/uploads/{{auth()->user()->foto}}" alt="User Avatar">
+                    @else
                         <img class="img-circle" src="/assets/images/user.png" alt="User Avatar">
+                    @endif
                     </div>
                 </div>
                 <br>
@@ -18,12 +22,14 @@
                 <h4 style="margin-bottom:0px;"><b>{{ucwords(Auth::user()->name)}}</b></h4>
                 {{Auth::user()->email}}
                 </div>
-                <!-- <form action="">
+                <form method="post" action="{{route('profile.foto')}}" enctype="multipart/form-data">
+                {{csrf_field()}}
+                {{method_field('put')}}
                     <div class="form-group text-center">
-                        <input type="file" class="upload" id="image" name="image"><label class="custom-file-label" for="image">Choose file</label>
+                    <input type="file" class="upload" id="image" name="foto"><label class="custom-file-label" for="image">Choose file</label>
                     </div>
-                    <button type="submit" class="btn btn-success bg-green btn-block">Change</button>
-                </form> -->
+                    <button type="submit" class="btn btn-success bg-red btn-block">Change</button>
+                </form>
             </div>
         </div>
     </div>
@@ -47,14 +53,22 @@
         <strong>{{ $message }}</strong>
         </div>
         @endif
-        @foreach ($errors->all() as $error)
-            <p class="text-danger">{{ $error }}</p>
-        @endforeach
         <div class="box box-info">
             <div class="box-header with-border">
                 <h3 class="box-title">Edit Profile</h3>
                 <h5 class="box-options pull-right" style="margin-top:0px;">Role : {{ucwords(Auth::user()->role)}}</h5>
             </div>
+            @if($errors->any())
+            <div class="alert alert-warning alert-dismissble">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                <li>{{$error}}</li>
+                        
+                    @endforeach
+                </ul>
+            </div>
+            @endif
             <form action="{{route('profile.update')}}" method="post" autocomplete="off">
             {{ csrf_field() }}
             {{ method_field('PUT') }}
@@ -106,5 +120,12 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-show-password/1.0.3/bootstrap-show-password.min.js"></script>
 <script type="text/javascript">
 	$("#password").password('toggle');
+</script>
+
+<script>
+  $('.upload').on('change', function () {
+    let fileName = $(this).val().split('\\').pop();
+    $(this).next('.custom-file-label').addClass("selected").html(fileName);
+  })
 </script>
 @endpush

@@ -41,13 +41,21 @@
         <ul class="nav navbar-nav">
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="/assets/material/dist/img/user-160x160.jpg" class="user-image" alt="User Image">
+              @if(auth()->user()->foto != null)
+                <img src="/uploads/{{auth()->user()->foto}}" class="user-image" alt="User Image">
+              @else
+                <img src="/assets/images/user.png" class="user-image" alt="User Image">
+              @endif
               <span class="hidden-xs">{{ucwords(Auth::user()->name)}}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="/assets/material/dist/img/user-160x160.jpg" class="img-circle" alt="User Image">
+              @if(auth()->user()->foto != null)
+                <img src="/uploads/{{auth()->user()->foto}}" class="img-circle" alt="User Image">
+              @else
+                <img src="/assets/images/user.png" class="img-circle" alt="User Image">
+              @endif
                 <p>{{ucwords(Auth::user()->name)}}<small>{{ucwords(Auth::user()->role)}}</small></p>
               </li>
               <!-- Menu Footer-->
@@ -75,7 +83,11 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="/assets/material/dist/img/user-160x160.jpg" class="img-circle" alt="User Image">
+          @if(auth()->user()->foto != null)
+            <img src="/uploads/{{auth()->user()->foto}}" class="img-circle" alt="User Image">
+          @else
+            <img src="/assets/images/user.png" class="img-circle" alt="User Image">
+          @endif
         </div>
         <div class="pull-left info">
           <p>{{ucwords(Auth::user()->name)}}</p>

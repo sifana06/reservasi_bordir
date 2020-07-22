@@ -48,15 +48,15 @@
             @csrf
             <div class="form-group">
                 <label>Nama Bank</label>
-                <input type="text" class="form-control" name="nama_bank" placeholder="Bank BRI">
+                <input type="text" class="form-control" name="nama_bank" placeholder="Bank BRI" value="{{old('nama_bank')}}">
             </div>
             <div class="form-group">
                 <label >No Rekening</label>
-                <input type="text" class="form-control" name="no_rekening" placeholder="5556238261">
+                <input type="text" class="form-control" name="no_rekening" placeholder="5556238261" value="{{old('no_rekening')}}">
             </div>
             <div class="form-group">
                 <label>Nama Pemilik Rekening</label>
-                <input type="text" class="form-control" placeholder="Ahmad Rojali" name="nama_pemilik">
+                <input type="text" class="form-control" placeholder="Ahmad Rojali" name="nama_pemilik" value="{{old('nama_pemilik')}}">
             </div>
             </div>
             <!-- /.box-body -->

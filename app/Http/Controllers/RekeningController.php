@@ -29,9 +29,9 @@ class RekeningController extends Controller
          * */
 
         $messages = [
-            'required' => ':atributnya gak boleh kosong',
-            'numeric' => 'atribut berupa angka ya',
-            'regex' => ':atribut berupa huruf dong',
+            'required' => ':attribute gak boleh kosong',
+            'numeric' => 'attribute berupa angka ya',
+            'regex' => ':attribute berupa huruf dong',
         ];
         
         $customAttributes = [
@@ -41,10 +41,10 @@ class RekeningController extends Controller
         ];
 
         $valid = $request->validate([
-            'nama_bank' => 'required|regex:/^[\pL\s\-]+$/u',
+            'nama_bank' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/',
             'no_rekening' => 'required|numeric',
-            'nama_pemilik' => 'required|regex:/^[\pL\s\-]+$/u'
-        ]);
+            'nama_pemilik' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/'
+        ],$messages,$customAttributes);
 
         $pemilik_id = auth()->user()->id;
         $rekening = new Rekening;
@@ -72,10 +72,9 @@ class RekeningController extends Controller
     public function update(Request $request, $id)
     {
         $messages = [
-            'required' => ':atributnya gak boleh kosong',
-            'numeric' => 'atribut berupa angka ya',
-            'regex' => ':atribut berupa huruf dong',
-            
+            'required' => ':attribute gak boleh kosong',
+            'numeric' => 'attribute berupa angka ya',
+            'regex' => ':attribute berupa huruf dong',
         ];
         
         $customAttributes = [
@@ -85,9 +84,9 @@ class RekeningController extends Controller
         ];
 
         $valid = $request->validate([
-            'nama_bank' => 'required|regex:/^[\pL\s\-]+$/u',
+            'nama_bank' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/',
             'no_rekening' => 'required|numeric',
-            'nama_pemilik' => 'required|regex:/^[\pL\s\-]+$/u',
+            'nama_pemilik' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/',
         ],$messages,$customAttributes);
 
         //Cek Validasi
