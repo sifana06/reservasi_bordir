@@ -138,7 +138,7 @@ class StoreController extends Controller
         */
         $valid = $request->validate([
             'nama' => 'required|regex:/^[\pL\s\-]+$/u',
-            'phone' => 'required|numeric|min:11',
+            'phone' => 'required|numeric|min:11|max:12',
             'alamat' => 'required|regex:/^[\pL\s\-]+$/u',
             'kabupaten' => 'required',
             'kecamatan' => 'required',

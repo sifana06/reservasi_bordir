@@ -32,7 +32,7 @@ class UsersStoreRequest extends FormRequest
         return [
             'name' => 'required|regex:/^[\pL\s\-]+$/u',
             'email' => 'required|unique:users,email',
-            'phone' => 'required',
+            'phone' => 'required|numeric|min:10|max:13',
             'role' => 'required'
         ];
     }
