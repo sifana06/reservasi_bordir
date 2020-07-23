@@ -108,21 +108,16 @@
             <i class="fa fa-users"></i> <span>Data Users</span>
           </a>
         </li>
-        <!-- <li class="{{ Route::currentRouteName() == 'rekening.index' || Route::currentRouteName() == 'rekening.edit' ||Route::currentRouteName() == 'rekening.create'  ? 'active' : '' }}">
-          <a href="{{route('rekening.index')}}">
-            <i class="fa fa-credit-card"></i> <span>Data Rekening</span>
+        <li>
+          <a href="{{route('dashboard.lapTransaksi')}}">
+            <i class="fa fa-file"></i> <span>Laporan Transaksi</span>
           </a>
         </li>
-        <li class="{{ Route::currentRouteName() == 'transaksi.index' || Route::currentRouteName() == 'transaksi.edit' ||Route::currentRouteName() == 'transaksi.create'  ? 'active' : '' }}">
-          <a href="{{route('transaksi.index')}}">
-            <i class="fa fa-refresh"></i> <span>Data Transaksi</span>
+        <li>
+          <a href="{{route('dashboard.lapPesanan')}}">
+            <i class="fa fa-file"></i> <span>Laporan Pesanan</span>
           </a>
-        </li> -->
-        <!-- <li class="{{ Route::currentRouteName() == 'setting' || Route::currentRouteName() == 'setting.edit' ||Route::currentRouteName() == 'setting.create'  ? 'active' : '' }}">
-          <a href="{{route('setting')}}">
-            <i class="fa fa-cogs"></i> <span>Setting</span>
-          </a>
-        </li> -->
+        </li>
         @endif
         @if(Auth::user()->role == 'pemilik')
         <li class="{{ Route::currentRouteName() == 'toko.index' || Route::currentRouteName() == 'toko.edit' ||Route::currentRouteName() == 'toko.create'  ? 'active' : '' }}">

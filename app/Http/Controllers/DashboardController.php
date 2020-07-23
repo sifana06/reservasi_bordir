@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use App\Models\Transaksi;
+use App\Models\Order;
+use PDF;
 
 class DashboardController extends Controller
 {
@@ -126,5 +129,34 @@ class DashboardController extends Controller
             return redirect()->route('profile')->with('success', 'Profile updated successfully.');
         }
         return redirect()->route('profile')->with('error', 'Profile updated is failed.');
+    }
+
+    public function lapPesanan()
+    {
+        $data['pesanan'] = Order::with(['product','user_customer','store_product'])->select(['id', 'user_id','store_id','product_id','order_number','foto','jenis_bordir','keterangan','nama_pelanggan','email','telepon','kabupaten','kecamatan','desa','alamat','catatan','deadline','jumlah','harga','total','status_order','status_pembayaran','status_pengiriman','tipe_pembayaran','order_at','received_at', 'created_at'])->get();
+        return view('dashboard.laporan.lap_pesanan',$data);
+    }
+    
+    public function cetak_pesanan()
+    {
+        $pesanan = Order::with(['product','user_customer','store_product'])->select(['id', 'user_id','store_id','product_id','order_number','foto','jenis_bordir','keterangan','nama_pelanggan','email','telepon','kabupaten','kecamatan','desa','alamat','catatan','deadline','jumlah','harga','total','status_order','status_pembayaran','status_pengiriman','tipe_pembayaran','order_at','received_at', 'created_at'])->get();
+    
+        $pdf = PDF::loadview('dashboard.laporan.pesanan_pdf',['pesanan'=>$pesanan]);
+        return $pdf->stream();
+    }
+    
+    public function lapTransaksi()
+    {
+        $data['transaksi'] = Transaksi::select(["id", "order_id","pemilik_id","pelanggan_id","product_id","rekening_id","toko_id","bukti_pembayaran","tanggal_transaksi"])->get();
+        
+        return view('dashboard.laporan.lap_transaksi',$data);
+    }
+    
+    public function cetak_transaksi()
+    {
+        $transaksi = Transaksi::select(["id", "order_id","pemilik_id","pelanggan_id","product_id","rekening_id","toko_id","bukti_pembayaran","tanggal_transaksi"])->get();
+    
+        $pdf = PDF::loadview('dashboard.laporan.transaksi_pdf',['transaksi'=>$transaksi]);
+        return $pdf->stream();
     }
 }

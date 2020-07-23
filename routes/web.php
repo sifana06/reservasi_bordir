@@ -35,6 +35,11 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function(){
     Route::group(['middleware' => 'auth.isAdmin'], function(){
         Route::get('settings', 'SettingController@index')->name('setting');
 
+        Route::get('lap-transaksi', 'DashboardController@lapTransaksi')->name('dashboard.lapTransaksi');
+        Route::get('lap-pesanan', 'DashboardController@lapPesanan')->name('dashboard.lapPesanan');
+        Route::get('transaksi_pdf', 'DashboardController@cetak_transaksi')->name('dashboard.cetakTransaksi');
+        Route::get('pesanan_pdf', 'DashboardController@cetak_pesanan')->name('dashboard.cetakPesanan');
+
         Route::get('users', 'UsersController@index')->name('user.index');
         Route::get('users/create', 'UsersController@create')->name('user.create');
         Route::post('users', 'UsersController@store')->name('user.store');

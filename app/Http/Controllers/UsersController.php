@@ -67,7 +67,7 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
         $valid = $request->validate([
-            'name' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/',
+            'name' => 'required|regex:/(^[A-Za-z]+$)+/',
             'email' => 'required|unique:users,email,'.$id,
             'phone' => 'required|numeric|digits_between:11,13',
             'role' => 'required'
