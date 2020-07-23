@@ -145,6 +145,19 @@
             <i class="fa fa-credit-card"></i> <span>Data Rekening</span>
           </a>
         </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-file"></i>
+            <span>Laporan</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{route('dashboard.lapTransaksi')}}"><i class="fa fa-circle-o"></i> Laporan Transaksi</a></li>
+            <li><a href="{{route('dashboard.lapPesanan')}}"><i class="fa fa-circle-o"></i> Laporan Pesanan</a></li>
+          </ul>
+        </li>
         @endif
         <!-- @if(Auth::user()->role == 'pelanggan')
         <li class="{{ Route::currentRouteName() == 'toko.index' || Route::currentRouteName() == 'toko.edit' ||Route::currentRouteName() == 'toko.create'  ? 'active' : '' }}">

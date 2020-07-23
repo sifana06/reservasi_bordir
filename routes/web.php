@@ -32,13 +32,13 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function(){
     Route::put('profile', 'DashboardController@profileUpdate')->name('profile.update');
     Route::put('foto-profile', 'DashboardController@updateFotoProfile')->name('profile.foto');
 
+    Route::get('lap-transaksi', 'DashboardController@lapTransaksi')->name('dashboard.lapTransaksi');
+    Route::get('lap-pesanan', 'DashboardController@lapPesanan')->name('dashboard.lapPesanan');
+    Route::get('transaksi_pdf', 'DashboardController@cetak_transaksi')->name('dashboard.cetakTransaksi');
+    Route::get('pesanan_pdf', 'DashboardController@cetak_pesanan')->name('dashboard.cetakPesanan');
+
     Route::group(['middleware' => 'auth.isAdmin'], function(){
         Route::get('settings', 'SettingController@index')->name('setting');
-
-        Route::get('lap-transaksi', 'DashboardController@lapTransaksi')->name('dashboard.lapTransaksi');
-        Route::get('lap-pesanan', 'DashboardController@lapPesanan')->name('dashboard.lapPesanan');
-        Route::get('transaksi_pdf', 'DashboardController@cetak_transaksi')->name('dashboard.cetakTransaksi');
-        Route::get('pesanan_pdf', 'DashboardController@cetak_pesanan')->name('dashboard.cetakPesanan');
 
         Route::get('users', 'UsersController@index')->name('user.index');
         Route::get('users/create', 'UsersController@create')->name('user.create');
@@ -77,7 +77,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function(){
     Route::group(['middleware' => 'role:isPemilik'], function(){
         Route::get('order', 'OrderController@index')->name('order.index');
         Route::get('order/create', 'OrderController@create')->name('order.create');
-        Route::post('create', 'OrderController@store')->name('order.store');
+        // Route::post('create', 'OrderController@store')->name('order.store');
         Route::get('data-order','OrderController@getData')->name('order.getdata');
         Route::get('order/edit/{id}','OrderController@edit')->name('order.edit');
         Route::put('order/update/{id}','OrderController@update')->name('order.update');

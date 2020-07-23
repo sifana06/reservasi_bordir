@@ -47,7 +47,7 @@ class StoreController extends Controller
         ];
 
         $valid = $request->validate([
-            'nama' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/',
+            'nama' => 'required|regex:/(^[A-Za-z ]+$)+/',
             'phone' => 'required|numeric|digits_between:11,13',
             'alamat' => 'required',
             'kabupaten' => 'required',
@@ -123,7 +123,7 @@ class StoreController extends Controller
          * liat di dokumentasi validation laravel.com
         */
         $valid = $request->validate([
-            'nama' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/',
+            'nama' => 'required|regex:/(^[A-Za-z ]+$)+/',
             'phone' => 'required|numeric|digits_between:11,13',
             'alamat' => 'required',
             'kabupaten' => 'required',

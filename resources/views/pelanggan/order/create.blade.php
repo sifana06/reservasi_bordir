@@ -3,6 +3,16 @@
 
 @section('content')
 <div class="row">
+    @if ($errors->any())
+    <div class="alert alert-warning alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+        </ul>
+    </div>
+    @endif
     <form action="{{route('order.store')}}" method="post">
     @csrf
         <div class="col-md-8">
@@ -16,7 +26,7 @@
                                 <label for="">Foto Produk</label>
                                 <div id="image-preview" style="width:200px;">
                                     <label for="image-upload" id="image-label" style="color:#f0f0f0;">Choose File</label>
-                                    <input type="file" name="foto" id="image-upload" />
+                                    <input type="file" name="foto" id="image-upload" value="{{old('foto')}}" />
                                 </div>
                             </div>
                         </div>

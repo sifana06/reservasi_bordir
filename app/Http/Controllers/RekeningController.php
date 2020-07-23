@@ -41,9 +41,9 @@ class RekeningController extends Controller
         ];
 
         $valid = $request->validate([
-            'nama_bank' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/',
+            'nama_bank' => 'required|regex:/(^[A-Za-z ]+$)+/',
             'no_rekening' => 'required|numeric',
-            'nama_pemilik' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/'
+            'nama_pemilik' => 'required|regex:/(^[A-Za-z ]+$)+/'
         ],$messages,$customAttributes);
 
         $pemilik_id = auth()->user()->id;
@@ -84,9 +84,9 @@ class RekeningController extends Controller
         ];
 
         $valid = $request->validate([
-            'nama_bank' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/',
+            'nama_bank' => 'required|regex:/(^[A-Za-z ]+$)+/',
             'no_rekening' => 'required|numeric',
-            'nama_pemilik' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/',
+            'nama_pemilik' => 'required|regex:/(^[A-Za-z ]+$)+/',
         ],$messages,$customAttributes);
 
         //Cek Validasi
@@ -95,6 +95,8 @@ class RekeningController extends Controller
 
             //Coba kamu terusin, sama kaya yg di controller StoreController
             $rekening->nama_bank = $request->nama_bank;
+            $rekening->no_rekening = $request->no_rekening;
+            $rekening->nama_pemilik = $request->nama_pemilik;
             $rekening->save();
             
             return redirect()->route('rekening.index')->with('success','Rekening berhasil diubah.');

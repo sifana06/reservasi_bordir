@@ -61,7 +61,7 @@
             <div class="card-body">
                 <h5 class="card-title"><a href="{{route('product.lihat',$pro->id)}}">{{$pro->nama}}</a></h5>
                 <span class="text-success">Rp. {{$pro->harga}}</span>
-                <p class="card-text">{{$pro->deskripsi}}</p>
+                <p class="card-text">{{substr($pro->deskripsi,0,50)}}</p>
                 <div class="text-center">
                     <a href="{{route('po.create',$pro->id)}}" class="text-center">Pesan</a>
                 </div>

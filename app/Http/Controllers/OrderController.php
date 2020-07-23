@@ -257,7 +257,7 @@ class OrderController extends Controller
             'product_id' => 'required',
             // 'foto' => 'required',
             'jenis_bordir' => 'required',
-            'nama_pelanggan' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/',
+            'nama_pelanggan' => 'required|regex:/(^[A-Za-z ]+$)+/',
             'telepon' => 'required|numeric|digits_between:11,13',
             'kabupaten' => 'required',
             'kecamatan' => 'required',
@@ -335,10 +335,9 @@ class OrderController extends Controller
         ];
 
         $valid = $request->validate([
-            'product_id' => 'required',
             // 'foto' => 'required',
             'jenis_bordir' => 'required',
-            'nama_pelanggan' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/',
+            'nama_pelanggan' => 'required|regex:/(^[A-Za-z ]+$)+/',
             'telepon' => 'required|numeric|digits_between:11,13',
             'kabupaten' => 'required',
             'kecamatan' => 'required',
@@ -347,7 +346,6 @@ class OrderController extends Controller
             'catatan' => 'required',
             'deadline' => 'required',
             'jumlah' => 'required',
-            'harga' => 'required',
         ],$messages,$customAttributes);
 
         // //cek foto

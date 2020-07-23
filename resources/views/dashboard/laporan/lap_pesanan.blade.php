@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.app')
-@section('title', 'Data Pesanan')
+@section('title', 'Laporan Pesanan')
 
 @section('content')
 <div class="row">
@@ -26,7 +26,7 @@
     <div class="box box-info">
       <div class="box-header with-border">
         <div class="box-title">
-          <h4 style="margin-top: 0px; margin-bottom: 0px;">All Pesanan</h4>
+          <h4 style="margin-top: 0px; margin-bottom: 0px;">Laporan Pesanan</h4>
         </div>
       </div>
       <!-- /.box-header -->

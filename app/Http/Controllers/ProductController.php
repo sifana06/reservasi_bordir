@@ -58,7 +58,7 @@ class ProductController extends Controller
         */
         $valid = $request->validate([
             'foto' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
-            'nama' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/',
+            'nama' => 'required|regex:/(^[A-Za-z ]+$)+/',
             'jenis_bordir' => 'required',
             'harga' => 'required|regex:/^\d+(\.\d{1,2})?$/',
             'deskripsi' => 'required',
@@ -133,14 +133,14 @@ class ProductController extends Controller
         if($request->foto != null){
             $valid = $request->validate([
                 'foto' => 'required|mimes:jpg,png,jpeg,gif,svg',
-                'nama' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/',
+                'nama' => 'required|regex:/(^[A-Za-z ]+$)+/',
                 'jenis_bordir' => 'required',
                 'harga' => 'required|regex:/^\d+(\.\d{1,2})?$/',
                 'deskripsi' => 'required',
             ]);
         }else{
             $valid = $request->validate([
-                'nama' => 'required|regex:/(^[A-Za-z0-9 ]+$)+/',
+                'nama' => 'required|regex:/(^[A-Za-z ]+$)+/',
                 'jenis_bordir' => 'required',
                 'harga' => 'required|regex:/^\d+(\.\d{1,2})?$/',
                 'deskripsi' => 'required',
