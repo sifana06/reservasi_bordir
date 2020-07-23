@@ -38,7 +38,7 @@
     <script src="/plugins/input-mask/plugin.js"></script>
   </head>
   <body class="">
-    <div class="page" style="background-image: url('/assets/images/hero-bg.jpg');">
+    <div class="page" style="background-image: url('/assets/images/hero-bg.JPG');">
       <div class="page-single">
         @yield('content')
       </div>
