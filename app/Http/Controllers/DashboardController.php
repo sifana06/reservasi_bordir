@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use App\Models\Transaksi;
 use App\Models\Order;
-use PDF;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class DashboardController extends Controller
 {
