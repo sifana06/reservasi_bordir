@@ -45,7 +45,11 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="">Harga</label>
+                                    @if($order->harga != null)
                                     <input type="text" class="form-control" name="harga" value="{{$order->harga}}" readonly="true">
+                                    @else
+                                    <input type="text" class="form-control" name="harga" value="{{$order->harga}}" required>
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-sm-6">

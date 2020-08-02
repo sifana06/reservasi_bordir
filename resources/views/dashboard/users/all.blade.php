@@ -12,6 +12,16 @@
           <h4 style="margin-top: 0px; margin-bottom: 0px;">Invite New Users</h4>
         </div>
       </div>
+      @if ($errors->any())
+        <div class="alert alert-warning alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+            </ul>
+        </div>
+        @endif
       <!-- /.box-header -->
       <!-- form start -->
       <form method="post" class="form-horizontal" action="{{ route('user.store')}}" enctype="multipart/form-data" autocomplete="off">
@@ -33,6 +43,16 @@
             <label for="inputPassword3" class="col-sm-2 control-label">Telepon</label>
             <div class="col-sm-10">
               <input type="text" class="form-control" placeholder="6283453234555" name="phone">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Jenis Kelamin</label>
+            <div class="col-sm-10">
+              <select name="jenis_kelamin" class="form-control">
+                <option value="">Pilih Jenis Kelamin</option>
+                <option value="laki-laki">Laki-laki</option>
+                <option value="perempuan">Perempuan</option>
+              </select>
             </div>
           </div>
           <div class="form-group">

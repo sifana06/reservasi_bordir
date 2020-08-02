@@ -70,6 +70,7 @@ class UsersController extends Controller
             'name' => 'required|regex:/(^[A-Za-z]+$)+/',
             'email' => 'required|unique:users,email,'.$id,
             'phone' => 'required|numeric|digits_between:11,13',
+            'jenis_kelamin' => 'required',
             'role' => 'required'
         ]);
         if($valid == true){
@@ -77,6 +78,7 @@ class UsersController extends Controller
             $user->name = $request->name;
             $user->email = $request->email;
             $user->phone = $request->phone;
+            $user->jenis_kelamin = $request->jenis_kelamin;
             $user->role = $request->role;
             $user->save();
         }

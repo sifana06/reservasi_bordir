@@ -23,7 +23,7 @@ Route::post('register', 'Auth\RegisterController@register');
 Route::get('kabupaten/kecamatan/{id}', 'StoreController@getKecamatan');
 Route::get('kecamatan/desa/{id}', 'StoreController@getDesa');
 
-Route::get('/', 'DashboardController@index')->name('dashboard.index');
+Route::get('/', 'BerandaController@index')->name('home');
 Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function(){
     Route::get('/', 'DashboardController@index')->name('dashboard.index');
     Route::get('home', 'DashboardController@dashboard')->name('dashboard');

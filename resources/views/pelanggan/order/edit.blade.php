@@ -177,9 +177,9 @@
                         <div class="row" id="buktiFieldDiv">
                             <div class="col-md-12" style="margin-top:0px;">
                                 <label for="">Bukti Pembayaran</label>
-                                <div id="image-preview" id="buktiField" style="background-image: url(/uploads/{{$order->bukti_transaksi}});background-size: cover;background-position: center center;">
-                                    <label for="image-upload" id="image-label" style="color:#f0f0f0;">Choose File</label>
-                                    <input type="file" name="bukti_pembayaran" id="image-upload" />
+                                <div id="image-lihat" style="background-image: url(/uploads/{{$order->bukti_transaksi}});background-size: cover;background-position: center center;">
+                                    <label for="image-unggah" id="image-label" style="color:#f0f0f0;">Choose File</label>
+                                    <input type="file" name="bukti_pembayaran" id="image-unggah" />
                                 </div>
                             </div>
                         </div>
@@ -264,6 +264,41 @@
     margin: auto;
     text-align: center;
 }
+#image-lihat {
+    width: 100%;
+    height: 160px;
+    position: relative;
+    overflow: hidden;
+    background-color: #e6ecf3;
+    color: #4a5152;
+    border: 2px dashed #ccc;
+    border-radius: 2px;
+}
+#image-lihat input {
+    line-height: 150px;
+    font-size: 18px;
+    position: absolute;
+    opacity: 0;
+    z-index: 10;
+}
+#image-lihat label {
+    position: absolute;
+    z-index: 5;
+    opacity: 0.8;
+    cursor: pointer;
+    background-color: #bdc3c7;
+    width: 110px;
+    height: 40px;
+    font-size: 12px;
+    line-height: 3.4em;
+    text-transform: uppercase;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    text-align: center;
+}
 </style>
 @endpush
 
@@ -275,7 +310,10 @@ $(document).ready(function() {
     $.uploadPreview({
         input_field: "#image-upload",
         preview_box: "#image-preview",
-        label_field: "#image-label"
+        label_field: "#image-label",
+        input_field: "#image-unggah",
+        preview_box: "#image-lihat",
+        label_field: "#image-judul"
     });
 });
 </script>

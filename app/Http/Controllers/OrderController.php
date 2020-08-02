@@ -98,6 +98,11 @@ class OrderController extends Controller
 
         // if($valid == true){
             $order = Order::find($id);
+            if($request->harga != null){
+                $total = $request->jumlah*$request->harga;
+                $order->harga = $request->harga;
+                $order->total = $total;
+            }
             $order->status_order = $request->status_order;
             $order->status_pembayaran = $request->status_pembayaran;
             $order->tipe_pembayaran = $request->tipe_pembayaran;
@@ -123,14 +128,34 @@ class OrderController extends Controller
 
         return DataTables::of($query)
             ->addColumn('order_number', function($order){
-                $output = $order->order_number.'<div><span class="text-warning"><b>Deadline : '.Carbon::parse($order->deadline)->format('d/M/y').'</b></span></div>';
+                // $output = '';
+                // $date_now = Carbon::now();
+                // $date = Carbon::parse($order->deadline);
+                // if ($date->diffInDays($date_now) > 2) {
+                //     $output = $order->order_number.'<div><span class="text-primary"><b>Deadline : '.Carbon::parse($order->deadline)->format('d/M/y').'</b></span></div>';
+                // }elseif($date->diffInDays($date_now) == 1){
+                //     $output = $order->order_number.'<div><span class="text-waring"><b>Deadline : '.Carbon::parse($order->deadline)->format('d/M/y').'</b></span></div>';
+                // }else{
+                //     $output = $order->order_number.'<div><span class="text-danger"><b>Deadline : '.Carbon::parse($order->deadline)->format('d/M/y').'</b></span></div>';
+                // }
+                if (Carbon::now()->between(Carbon::parse($order->created_at), Carbon::parse($order->deadline))){
+                    $output = $order->order_number.'<div><span class="text-primary"><b>Deadline : '.Carbon::parse($order->deadline)->format('d/M/y').'</b></span></div>';
+                }else{
+                    $output = $order->order_number.'<div><span class="text-danger"><b>Deadline : '.Carbon::parse($order->deadline)->format('d/M/y').'</b></span></div>';
+                }
                 return $output;
             })
             ->addColumn('customers', function($order){
                 return $order->nama_pelanggan;
             })
             ->addColumn('products', function($order){
-                return $order->product->nama.'<div>Jenis Bordir: '.$order->jenis_bordir.'</div>';
+                if($order->product_id != null){
+                    $output = $order->product->nama.'<div>Jenis Bordir: '.$order->jenis_bordir.'</div>';
+                }else{
+                    $output = '<div>Jenis Bordir: '.$order->jenis_bordir.'</div>';
+                }
+
+                return $output;
             })
             ->addColumn('status', function($order){
                 switch ($order->status_order) {
@@ -335,7 +360,7 @@ class OrderController extends Controller
         ];
 
         $valid = $request->validate([
-            // 'foto' => 'required',
+            'foto' => 'required',
             'jenis_bordir' => 'required',
             'nama_pelanggan' => 'required|regex:/(^[A-Za-z ]+$)+/',
             'telepon' => 'required|numeric|digits_between:11,13',
@@ -348,23 +373,26 @@ class OrderController extends Controller
             'jumlah' => 'required',
         ],$messages,$customAttributes);
 
-        // //cek foto
-        // $cover = $request->file('foto');
-        // $extension = $cover->getClientOriginalExtension();
-        // Storage::disk('public')->put($cover->getFilename().'.'.$extension,  File::get($cover));
-    
+        
         //Cek apakah validasi di atas benar
         if($valid == true){
+            $getPemilik = Store::find($request->store_id);
             if($request->tipe_pembayaran == 'transfer'){
                 $total = $request->jumlah*$request->harga+$request->ongkir;
             }else{
                 $total = $request->jumlah*$request->harga;
             }
+            // //cek foto
+            $cover = $request->file('foto');
+            $extension = $cover->getClientOriginalExtension();
+            Storage::disk('public')->put($cover->getFilename().'.'.$extension,  File::get($cover));
+            
             $data_store = Order::create([
                 'user_id' => $user_id,
                 'store_id' => $request->get('store_id'),
-                'pemilik_id' => $request->get('pemilik_id'),
+                'pemilik_id' => $getPemilik->pemilik_id,
                 'order_number' =>  "RO".Carbon::now()->format('Y/m/d')."-".Carbon::now()->format('His'),
+                'foto' => $cover->getFilename().'.'.$extension,
                 'jenis_bordir' => $request->get('jenis_bordir'),
                 'keterangan' => $request->get('keterangan'),
                 'nama_pelanggan' => $request->get('nama_pelanggan'),
@@ -488,7 +516,14 @@ class OrderController extends Controller
                 return $order->nama_pelanggan;
             })
             ->addColumn('produk', function($order){
-                return $order->product->nama.'<div>Jenis Bordir: '.$order->jenis_bordir.'</div>';
+                $output = '';
+                if($order->product_id != null){
+                    $output .= $order->product->nama.'<div>Jenis Bordir: '.$order->jenis_bordir.'</div>';
+                }else{
+                    $output .= '<div>Jenis Bordir: '.$order->jenis_bordir.'</div>';
+                }
+
+                return $output;
             })
             ->addColumn('status', function($order){
                 switch ($order->status_order) {

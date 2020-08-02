@@ -13,7 +13,7 @@
         </ul>
     </div>
     @endif
-    <form action="{{route('order.store')}}" method="post">
+    <form action="{{route('order.store')}}" method="post" enctype="multipart/form-data"3>
     @csrf
         <div class="col-md-8">
             <div class="box box-info">

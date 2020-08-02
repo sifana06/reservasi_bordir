@@ -47,6 +47,16 @@
             </div>
           </div>
           <div class="form-group">
+            <label class="col-sm-2 control-label">Jenis Kelamin</label>
+            <div class="col-sm-10">
+              <select name="jenis_kelamin" class="form-control">
+                <option value="">Pilih Jenis Kelamin</option>
+                <option value="laki-laki" {{$user->jenis_kelamin == 'laki-laki' ? 'selected':''}}>Laki-laki</option>
+                <option value="perempuan" {{$user->jenis_kelamin == 'perempuan' ? 'selected':''}}>Perempuan</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
             <label class="col-sm-2 control-label">Role</label>
             <div class="col-sm-10">
               <select name="role" class="form-control">

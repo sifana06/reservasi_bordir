@@ -75,7 +75,7 @@
                 <div class="box-body">
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" class="form-control "placeholder="Name" name="name" value={{Auth::user()->name}}>
+                        <input type="text" class="form-control "placeholder="Name" name="name" value="{{Auth::user()->name}}">
                     </div>
             <!--     <div class="form-group">
                         <label>Foto</label>
@@ -83,11 +83,15 @@
                     </div>  -->
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="text" class="form-control "placeholder="Password" name="email" value={{Auth::user()->email}} readonly>
+                        <input type="text" class="form-control "placeholder="Password" name="email" value="{{Auth::user()->email}}" readonly>
                     </div>
                     <div class="form-group">
                         <label>Phone</label>
-                        <input type="text" class="form-control "placeholder="Enter email" name="phone" value={{Auth::user()->phone}}>
+                        <input type="text" class="form-control "placeholder="No Telepon" name="phone" value="{{Auth::user()->phone}}">
+                    </div>
+                    <div class="form-group">
+                        <label>Jenis Kelamin</label>
+                        <input type="text" class="form-control "placeholder="Jenis Kelamin" name="jenis_kelamin" value="{{Auth::user()->jenis_kelamin}}" readonly>
                     </div>
                     @if(Auth::user()->role == "pemilik")
                     <div class="form-group">
