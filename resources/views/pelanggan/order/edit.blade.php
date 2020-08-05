@@ -203,8 +203,8 @@
                             <label for="" style="margin-top:0px;margin-bottom:0px;">Status Penerimaan</label>
                             <select name="status_penerima" class="form-control">
                                 <option value="">Pilih Status </option>
-                                <option value="belum diterima" {{$order->status_pengiriman == 'belum diterima' ? 'selected':''}}>Belum Diterima</option>
-                                <option value="sudah diterima" {{$order->status_pengiriman == 'sudah diterima' ? 'selected':''}}>Sudah Diterima</option>
+                                <option value="belum diterima" {{$order->status_penerima == 'belum diterima' ? 'selected':''}}>Belum Diterima</option>
+                                <option value="sudah diterima" {{$order->status_pengrima == 'sudah diterima' ? 'selected':''}}>Sudah Diterima</option>
                             </select>
                         </div>
                         
