@@ -26,6 +26,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('password'),
             'phone' => '0823239323423',
             'role' => 'admin',
+            'jenis_kelamin' => 'perempuan',
         ];
 
         User::firstOrCreate($payload)->sharedLock()->get();
@@ -36,6 +37,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('secret'),
             'phone' => '087567786734',
             'role' => 'pemilik',
+            'jenis_kelamin' => 'perempuan',
         ];
 
         User::firstOrCreate($payload);
@@ -45,7 +47,8 @@ class UserSeeder extends Seeder
             'email' => 'azidantx98@gmail.com',
             'password' => bcrypt('rahasia'),
             'phone' => '0834573465234',
-            'role' => 'pemilik'
+            'role' => 'pemilik',
+            'jenis_kelamin' => 'perempuan',
         ];
 
         User::firstOrCreate($payload);
